@@ -166,10 +166,10 @@ class Recruiter extends User {
     public $id;
     public $companyName;
 
-    public function __construct($id, $name, $lastname, $email, $password, $phoneNumber, $role,
+    public function __construct($id, $name, $lastname, $email, $password, $phoneNumber, $userType,
                                     $companyName)
     {
-        parent:: __construct($id, $name, $lastname, $email, $password, $phoneNumber, $role);
+        parent:: __construct($id, $name, $lastname, $email, $password, $phoneNumber, $userType);
         $this->id = $id;
 		$this->companyName = $companyName;
     }
