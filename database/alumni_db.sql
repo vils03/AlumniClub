@@ -1,3 +1,4 @@
+--CREATE DATABASE AlumniClub;
 
 CREATE TABLE Users ( -- Represents the main user type.
     UserId          INT      NOT NULL,
@@ -105,6 +106,6 @@ CREATE TABLE AdInfo ( -- table for ads from recruiter
 	-- 
 	CONSTRAINT AdInfo_PK        PRIMARY KEY (AdId),
     CONSTRAINT AdInfoToRecruiter_FK  FOREIGN KEY (RecruiterId)
-        REFERENCES Users (UserId)
+        REFERENCES Recruiter (RecruiterId)
 );
 
