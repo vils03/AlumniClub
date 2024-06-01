@@ -21,11 +21,11 @@
                 <label for="email">Имейл: </label>
                 <input type="email" id="email">
                 <label for="password">Парола: </label>
-                <input type="text" id="password">
+                <input type="password" id="password">
                 <label for="phone-number">Телефонен номер: </label>
                 <input type="tel" id="phone-number">
-                <input type="radio" name="user_type" id="recruiter" value="recruiter">Рекрутър
-                <input type="radio" name="user_type" id="graduate" value="graduate">Завършил студент
+                <label><input type="radio" name="user_type" id="recruiter" value="recruiter">Рекрутър</label>
+                <label><input type="radio" name="user_type" id="graduate" value="graduate">Завършил студент</label>
             </section>
             <section id="graduate-info" class="additional">
                 <label for="fn">Факултетен номер: </label>
@@ -35,7 +35,7 @@
                     <option value="KN">Компютърни науки</option>
                     <option value="IS">Информационни системи</option>
                     <option value="I">Информатика</option>
-                    <option value="AD">Анализ на данни</option>
+                    <option value="AD" >Анализ на данни</option>
                     <option value="M">Математика</option>
                     <option value="MI">Математика и информатика</option>
                     <option value="PM">приложна математика</option>
@@ -44,8 +44,10 @@
                 <input type="number" id="class" min="2000" max="3000">
                 <label for="location">Локация: </label>
                 <input type="text" id="location">
-                <input type="radio" name="status" value="employed">Работещ
-                <input type="radio" name="status" value="unemployed">Завършил студент
+                <select id="status">
+                    <option value="employed">Работещ</option>
+                    <option value="unemployed">Неработещ</option>
+                </select>
             </section>
             <section id="recruiter-info" class="additional">
                 <label for="company">Име на компания: </label>
