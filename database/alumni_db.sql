@@ -33,7 +33,6 @@ CREATE TABLE Graduate ( -- Stands for one of the subtypes.
 	Status             BIT NOT NULL,
 	Location           VARCHAR(100) NOT NULL,
     MajorId            INT      NOT NULL,
-    CreatedDateTime DATETIME NOT NULL,
     -- 
     CONSTRAINT Graduate_PK            PRIMARY KEY (GraduateId),
     CONSTRAINT GraduateToUser_FK      FOREIGN KEY (GraduateId)
@@ -103,6 +102,7 @@ CREATE TABLE AdInfo ( -- table for ads from recruiter
 	RecruiterId       INT NOT NULL,
 	AdName            VARCHAR(50) NOT NULL,
 	AdDesc            VARCHAR(200) NOT NULL,
+    CreatedEventDateTime DATETIME NOT NULL,
 	-- 
 	CONSTRAINT AdInfo_PK        PRIMARY KEY (AdId),
     CONSTRAINT AdInfoToRecruiter_FK  FOREIGN KEY (RecruiterId)
