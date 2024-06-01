@@ -7,6 +7,7 @@ CREATE TABLE Users ( -- Represents the main user type.
 	EmailAddress    VARCHAR(30) NOT NULL,
 	UserPassword    VARCHAR(30) NOT NULL,
     PhoneNumber     VARCHAR(30) NOT NULL,
+    UserType        VARCHAR(30) NOT NULL,
      
     --
     CONSTRAINT User_PK  PRIMARY KEY (UserId),
