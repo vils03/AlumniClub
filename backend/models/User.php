@@ -121,6 +121,73 @@ class Graduate extends User {
 		$this->location = $location;
     }
 
+    public function fetchUserId (PDO $conn) {
+        $sql = "SELECT UserId FROM User WHERE email = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([$email]);
+
+        return $stmt->fetch(PDO::FETCH_ASSOC)["UserId"];
+    }
+
+    public function fetchMajorId(PDO $conn) {
+        $sql = "SELECT MajorId FROM Major WHERE MajorName = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([$major]);
+
+        return $stmt->fetch(PDO::FETCH_ASSOC)["MajorId"];
+    }
+
+    public function storeInDB(): void {
+        require_once "../db/DB.php";
+
+        try{
+			$conn = $db->beginTransaction();
+		}
+		catch (PDOException $e) {
+			echo json_encode([
+				'success' => false,
+				'message' => "Неуспешно свързване с базата данни",
+			]);
+		}
+        try {
+            $errorMessage = "";
+            if (parent::storeInDB()){
+                
+                $userId = fetchUserId($conn);
+                $majorId = fetchMajor($conn);
+
+                $insertGraduate = $conn->prepare(
+                    "INSERT INTO `Graduate` (GraduateId, fn, major, class, status, location, majorId)
+                    VALUES (:GraduateId, :fn, :major, :class, :status, :location, :majorId)");
+            
+                $insertResult = $insertGraduate->execute([
+                    'GraduateId' => $userId,
+                    'fn' => $this->fn,
+                    'major' => $this->major,
+                    'class' => $this->class,
+                    'status' => $this->status,
+                    'location' => $this->location,
+                    'MajorId' => $majorId,
+                ]);
+                if ($insertResult) {
+                    $this->conn->commit();
+                } else {
+                    $this->conn->rollback();
+                }
+             
+            } else {
+                $this->conn->rollback();
+            }
+        } catch (PDOException $e) {
+            echo json_encode([
+                'success' => false,
+                'message' => $e->getMessage()
+            ]);
+            exit();
+        }
+        
+    }
+
     public function validate(): void {
         try {
             parent::validateUser();
@@ -172,6 +239,58 @@ class Recruiter extends User {
         parent:: __construct($id, $name, $lastname, $email, $password, $phoneNumber, $userType);
         $this->id = $id;
 		$this->companyName = $companyName;
+    }
+
+    public function fetchUserId (PDO $conn) {
+        $sql = "SELECT UserId FROM User WHERE email = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([$email]);
+
+        return $stmt->fetch(PDO::FETCH_ASSOC)["UserId"];
+    }
+
+    public function storeInDB(): void {
+        require_once "../db/DB.php";
+
+        try{
+			$conn = $db->beginTransaction();
+		}
+		catch (PDOException $e) {
+			echo json_encode([
+				'success' => false,
+				'message' => "Неуспешно свързване с базата данни",
+			]);
+		}
+        try {
+            if (parent::storeInDB()){
+                
+                $userId = fetchUserId($conn);
+
+                $insertRecruiter = $conn->prepare(
+                    "INSERT INTO `Recruiter` (RecruiterId, companyName)
+                    VALUES (:RecruiterId, :companyName)");
+            
+                $insertResult = $insertGraduate->execute([
+                    'RecruiterId' => $userId,
+                    'companyName'=> $this->companyName,
+                ]);
+                if ($insertResult) {
+                    $this->conn->commit();
+                } else {
+                    $this->conn->rollback();
+                }
+             
+            } else {
+                $this->conn->rollback();
+            }
+        } catch (PDOException $e) {
+            echo json_encode([
+                'success' => false,
+                'message' => $e->getMessage()
+            ]);
+            exit();
+        }
+        
     }
 
     public function validate(): void {
