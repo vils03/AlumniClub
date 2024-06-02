@@ -19,7 +19,7 @@ class User {
 		$this->userType = $userType;
     }
 
-    public function storeMainUserinDB(): void {
+    public function storeInDB(): void {
         require_once "../db/DB.php";
 
         try{
@@ -121,7 +121,7 @@ class Graduate extends User {
 		$this->location = $location;
     }
 
-    public function validateGraduate(): void {
+    public function validate(): void {
         try {
             parent::validateUser();
         }
@@ -174,7 +174,7 @@ class Recruiter extends User {
 		$this->companyName = $companyName;
     }
 
-    public function validateRecruiter(): void {
+    public function validate(): void {
         try {
             parent::validateUser();
         }
