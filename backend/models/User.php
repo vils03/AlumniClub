@@ -19,6 +19,36 @@ class User {
 		$this->userType = $userType;
     }
 
+    public function checkLogin(): void {
+        
+        require_once "../db/DB.php";
+
+		try{
+			$db = new DB();
+			$conn = $db->getConnection();
+		}
+		catch (PDOException $e) {
+			echo json_encode([
+				'success' => false,
+				'message' => "Неуспешно свързване с базата данни",
+			]);
+			exit();
+		}
+		
+        $selectStatement = $conn->prepare("SELECT * FROM `users` WHERE emailAddress = :emailAddress");
+        $result = $selectStatement->execute(['emailAddress' => $this->email]);
+        
+		$dbUser = $selectStatement->fetch();
+		if ($dbUser == false) {
+            throw new Exception("Грешно потребителско име.");
+		}
+		
+        if (!password_verify($this->password, $dbUser['password'])) {
+            throw new Exception("Грешна парола.");
+        }
+
+	}
+
     public function validateUser(): void {
         if(empty($this->name)) {
             throw new Exception("Полето име е задължително!");
