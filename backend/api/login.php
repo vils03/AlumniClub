@@ -22,7 +22,7 @@ else {
         $email = $phpInput['email'];
         $password = $phpInput['password'];
 
-        $user = new User(null, null, null, $phpInput['email'], $phpInput['password'], null, null);
+        $user = new User(null, null, null, $email, $password, null, null);
 
         try {
 
