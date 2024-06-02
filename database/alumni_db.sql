@@ -102,6 +102,6 @@ CREATE TABLE AdInfo (
 	
 	CONSTRAINT AdInfo_PK        PRIMARY KEY (AdId),
     CONSTRAINT AdInfoToRecruiter_FK  FOREIGN KEY (RecruiterId)
-        REFERENCES Users (UserId)
+        REFERENCES Recruiter (RecruiterId)
 );
 
