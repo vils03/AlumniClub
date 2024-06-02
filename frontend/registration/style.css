@@ -9,3 +9,13 @@
 .form-element{
     font-size: 14pt;
 }
+
+.reg-not-success{
+    display: none;
+    color: red;
+}
+
+.reg-success{
+    display:none;
+    color: green;
+}

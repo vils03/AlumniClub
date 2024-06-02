@@ -33,7 +33,7 @@ class User {
 			]);
 		}
         $insertMainUser = $conn->prepare(
-            "INSERT INTO `users` (name, lastname, email, password, phoneNumber, userType)
+            "INSERT INTO `users` (firstname, lastname, emailaddress, userpassword, phoneNumber, userType)
              VALUES (:name, :lastname, :email, :password, :phoneNumber, :userType)");
             
         $hashedPassword = password_hash($this->password, PASSWORD_DEFAULT);
@@ -95,7 +95,7 @@ class User {
         if(!(preg_match('/^[0-9]{10}$/', $this->phoneNumber))) {
             throw new Exception("Моля, попълнете валиден телефонен номер от типа 08xxxxxxxx.");
         }
-        if($this->userType != 'graduate' || $this->userType != 'recruiter') {
+        if(strcmp($this->userType,'graduate')!=0 && strcmp($this->userType,'recruiter')!=0) {
             throw new Exception("Невалиден тип потребител");
         }
     }
@@ -124,7 +124,7 @@ class Graduate extends User {
     public function fetchUserId (PDO $conn) {
         $sql = "SELECT UserId FROM User WHERE email = ?";
         $stmt = $conn->prepare($sql);
-        $stmt->execute([$email]);
+        $stmt->execute([$this->email]);
 
         return $stmt->fetch(PDO::FETCH_ASSOC)["UserId"];
     }
@@ -132,7 +132,7 @@ class Graduate extends User {
     public function fetchMajorId(PDO $conn) {
         $sql = "SELECT MajorId FROM Major WHERE MajorName = ?";
         $stmt = $conn->prepare($sql);
-        $stmt->execute([$major]);
+        $stmt->execute([$this->major]);
 
         return $stmt->fetch(PDO::FETCH_ASSOC)["MajorId"];
     }
@@ -141,7 +141,9 @@ class Graduate extends User {
         require_once "../db/DB.php";
 
         try{
-			$conn = $db->beginTransaction();
+            $db = new DB();
+            $conn = $db->getConnection();
+			$conn->beginTransaction();
 		}
 		catch (PDOException $e) {
 			echo json_encode([
@@ -244,16 +246,18 @@ class Recruiter extends User {
     public function fetchUserId (PDO $conn) {
         $sql = "SELECT UserId FROM User WHERE email = ?";
         $stmt = $conn->prepare($sql);
-        $stmt->execute([$email]);
+        $stmt->execute([$this->email]);
 
         return $stmt->fetch(PDO::FETCH_ASSOC)["UserId"];
     }
 
     public function storeInDB(): void {
         require_once "../db/DB.php";
-
+        
         try{
-			$conn = $db->beginTransaction();
+            $db = new DB();
+			$conn = $db->getConnection();
+            $conn->beginTransaction();
 		}
 		catch (PDOException $e) {
 			echo json_encode([

@@ -26,6 +26,7 @@ const state = { userType: null };
 
 recruiter.addEventListener('click', (event) => showAdditionalSection(event, 'recruiter-info', state));
 graduate.addEventListener('click', (event) => showAdditionalSection(event, 'graduate-info', state));
+
 // Get info from HTML form 
 const registrationForm = document.getElementById('register-form');
 registrationForm.addEventListener('submit', (event) => {
@@ -38,7 +39,35 @@ registrationForm.addEventListener('submit', (event) => {
         userData[input.id] = input.value;
     });
 
-    console.log(userData);
+    fetch('../../backend/api/registration.php', {
+        method: 'POST',
+        body: JSON.stringify(userData),
+    })
+    .then(response=>response.json())
+    .then(response=>{
+        if(response.success){
+            var messageBox = document.getElementById("reg-success");
+            messageBox.style.display = 'block';
+            messageBox.innerText = "bravo";
+        }
+        else{
+            var messageBox = document.getElementById("reg-not-success");
+            messageBox.style.display = 'block';
+            messageBox.innerText = response.message;
+        }
+    })
+    // const response = {'success': false, 'message': 'poleto e zad'};
+    // if(response.success){
+    //     var messageBox = document.getElementById("reg-success");
+    //     messageBox.style.display = 'block';
+    //     // ...
+    // }
+    // else{
+    //     var messageBox = document.getElementById("reg-not-success");
+    //     messageBox.style.display = 'block';
+    //     messageBox.innerText = response.message;
+    // }
+    // console.log(response);
 
     event.preventDefault();
 });

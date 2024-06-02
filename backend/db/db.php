@@ -5,7 +5,7 @@
         public $connection;
 
         public function __construct() {
-            $this->connection = new PDO("mysql:host=localhost:3307;dbname=alumni_db", 'root', '');
+            $this->connection = new PDO("mysql:host=localhost:3306;dbname=alumniclub", 'root', '');
         }
 
         public function getConnection() {
