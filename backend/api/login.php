@@ -22,17 +22,17 @@ else {
         $email = $phpInput['email'];
         $password = $phpInput['password'];
 
-        $user = new User(null, $phpInput['email'], $phpInput['password'], null, null, null, null);
+        $user = new User(null, null, null, $phpInput['email'], $phpInput['password'], null, null);
 
         try {
 
             $user->checkLogin();
 
-            $_SESSION['email'] = $phpInput['email'];
+            //$_SESSION['email'] = $phpInput['email'];
 
             echo json_encode([
                 'success' => true,
-                'email' => $_SESSION['email'],
+                'email' => $email,
             ]);
             
         } catch (Exception $e) {

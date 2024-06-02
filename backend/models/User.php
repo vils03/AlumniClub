@@ -43,7 +43,7 @@ class User {
             throw new Exception("Грешно потребителско име.");
 		}
 		
-        if (!password_verify($this->password, $dbUser['password'])) {
+        if (!password_verify($this->password, $dbUser['UserPassword'])) {
             throw new Exception("Грешна парола.");
         }
 

@@ -1,9 +1,9 @@
 const loginForm = document.getElementById('login-form');
 loginForm.addEventListener('submit', (event) => {
+    event.preventDefault();
     const inputs = loginForm.querySelectorAll('input');
 
     const userData = {};
-    userData['type'] = state['userType'];
     inputs.forEach(input => {
         userData[input.id] = input.value;
     });
@@ -13,7 +13,6 @@ loginForm.addEventListener('submit', (event) => {
         body: JSON.stringify(userData),
     })
     .then(response=>response.json())
-    //fix
     .then(response=>{
         if(response.success){
             var messageBox = document.getElementById("reg-success");
