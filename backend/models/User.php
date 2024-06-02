@@ -19,34 +19,7 @@ class User {
 		$this->userType = $userType;
     }
 
-    public function storeInDB(): void {
-        require_once "../db/DB.php";
-
-        try{
-			$db = new DB();
-			$conn = $db->getConnection();
-		}
-		catch (PDOException $e) {
-			echo json_encode([
-				'success' => false,
-				'message' => "Неуспешно свързване с базата данни",
-			]);
-		}
-        $insertMainUser = $conn->prepare(
-            "INSERT INTO `users` (firstname, lastname, emailaddress, userpassword, phoneNumber, userType)
-             VALUES (:name, :lastname, :email, :password, :phoneNumber, :userType)");
-            
-        $hashedPassword = password_hash($this->password, PASSWORD_DEFAULT);
-
-        $insertResult = $insertMainUser->execute([
-                'name' => $this->name,
-                'lastname' => $this->lastname,
-                'email' => $this->email,
-				'password' => $hashedPassword,
-				'email' => $this->email,
-				'phoneNumber' => $this->phoneNumber,
-				'userType' => $this->userType,
-        ]);
+    
 
         if (!$insertResult) {
             $errorInfo = $insertMainUser->errorInfo();
@@ -59,7 +32,7 @@ class User {
             }
             throw new Exception($errorMessage);
         }
-    }
+    
 
     public function validateUser(): void {
         if(empty($this->name)) {
@@ -152,34 +125,60 @@ class Graduate extends User {
 			]);
 		}
         try {
-            $errorMessage = "";
-            if (parent::storeInDB()){
                 
-                $userId = fetchUserId($conn);
-                $majorId = fetchMajor($conn);
+            $majorId = fetchMajor($conn);
 
-                $insertGraduate = $conn->prepare(
-                    "INSERT INTO `Graduate` (GraduateId, fn, major, class, status, location, majorId)
-                    VALUES (:GraduateId, :fn, :major, :class, :status, :location, :majorId)");
-            
-                $insertResult = $insertGraduate->execute([
-                    'GraduateId' => $userId,
-                    'fn' => $this->fn,
-                    'major' => $this->major,
-                    'class' => $this->class,
-                    'status' => $this->status,
-                    'location' => $this->location,
-                    'MajorId' => $majorId,
-                ]);
-                if ($insertResult) {
-                    $this->conn->commit();
+            $insertMainUser = $conn->prepare(
+                "INSERT INTO `users` (firstname, lastname, emailaddress, userpassword, phoneNumber, userType)
+                    VALUES (:name, :lastname, :email, :password, :phoneNumber, :userType)");
+                
+            $hashedPassword = password_hash($this->password, PASSWORD_DEFAULT);
+
+            $insertGraduate = $conn->prepare(
+                "INSERT INTO `Graduate` (GraduateId, fn, major, class, status, location, majorId)
+                VALUES (:GraduateId, :fn, :major, :class, :status, :location, :majorId)");
+
+            $insertResultMain = $insertMainUser->execute([
+                'name' => $this->name,
+                'lastname' => $this->lastname,
+                'email' => $this->email,
+                'password' => $hashedPassword,
+                'email' => $this->email,
+                'phoneNumber' => $this->phoneNumber,
+                'userType' => $this->userType,
+            ]);
+
+            if (!$insertResultMain) {
+                $errorInfo = $insertMainUser->errorInfo();
+                $errorMessage = "";
+                
+                if ($errorInfo[1] == 1062) {
+                    $errorMessage = "Вече съществува потребител с този имейл";
                 } else {
-                    $this->conn->rollback();
+                    $errorMessage = "Грешка при запис на информацията.";
                 }
-             
+                throw new Exception($errorMessage);
+                exit();
+            }
+
+            $UserId = fetchUserId($conn);
+
+            $insertResultGrad = $insertGraduate->execute([
+                'GraduateId' => $UserId,
+                'fn' => $this->fn,
+                'major' => $this->major,
+                'class' => $this->class,
+                'status' => $this->status,
+                'location' => $this->location,
+                'MajorId' => $majorId,
+            ]);
+            if ($insertResultGrad) {
+                $this->conn->commit();
             } else {
                 $this->conn->rollback();
             }
+
+            
         } catch (PDOException $e) {
             echo json_encode([
                 'success' => false,
@@ -266,24 +265,49 @@ class Recruiter extends User {
 			]);
 		}
         try {
-            if (parent::storeInDB()){
-                
-                $userId = fetchUserId($conn);
+            $majorId = fetchMajor($conn);
 
-                $insertRecruiter = $conn->prepare(
-                    "INSERT INTO `Recruiter` (RecruiterId, companyName)
-                    VALUES (:RecruiterId, :companyName)");
-            
-                $insertResult = $insertGraduate->execute([
-                    'RecruiterId' => $userId,
-                    'companyName'=> $this->companyName,
-                ]);
-                if ($insertResult) {
-                    $this->conn->commit();
+            $insertMainUser = $conn->prepare(
+                "INSERT INTO `users` (firstname, lastname, emailaddress, userpassword, phoneNumber, userType)
+                    VALUES (:name, :lastname, :email, :password, :phoneNumber, :userType)");
+                
+            $hashedPassword = password_hash($this->password, PASSWORD_DEFAULT);
+
+            $insertResultMain = $insertMainUser->execute([
+                'name' => $this->name,
+                'lastname' => $this->lastname,
+                'email' => $this->email,
+                'password' => $hashedPassword,
+                'email' => $this->email,
+                'phoneNumber' => $this->phoneNumber,
+                'userType' => $this->userType,
+            ]);
+
+            if (!$insertResultMain) {
+                $errorInfo = $insertMainUser->errorInfo();
+                $errorMessage = "";
+                
+                if ($errorInfo[1] == 1062) {
+                    $errorMessage = "Вече съществува потребител с този имейл";
                 } else {
-                    $this->conn->rollback();
+                    $errorMessage = "Грешка при запис на информацията.";
                 }
-             
+                throw new Exception($errorMessage);
+                exit();
+            }
+
+            $userId = fetchUserId($conn);
+
+            $insertRecruiter = $conn->prepare(
+                "INSERT INTO `Recruiter` (RecruiterId, companyName)
+                VALUES (:RecruiterId, :companyName)");
+        
+            $insertResult = $insertGraduate->execute([
+                'RecruiterId' => $userId,
+                'companyName'=> $this->companyName,
+            ]);
+            if ($insertResult) {
+                $this->conn->commit();
             } else {
                 $this->conn->rollback();
             }
