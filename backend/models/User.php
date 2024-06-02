@@ -19,21 +19,6 @@ class User {
 		$this->userType = $userType;
     }
 
-    
-
-        if (!$insertResult) {
-            $errorInfo = $insertMainUser->errorInfo();
-            $errorMessage = "";
-            
-            if ($errorInfo[1] == 1062) {
-                $errorMessage = "Вече съществува потребител с този имейл";
-            } else {
-                $errorMessage = "Грешка при запис на информацията.";
-            }
-            throw new Exception($errorMessage);
-        }
-    
-
     public function validateUser(): void {
         if(empty($this->name)) {
             throw new Exception("Полето име е задължително!");
@@ -95,7 +80,7 @@ class Graduate extends User {
     }
 
     public function fetchUserId (PDO $conn) {
-        $sql = "SELECT UserId FROM User WHERE email = ?";
+        $sql = "SELECT UserId FROM Users WHERE emailaddress = ?";
         $stmt = $conn->prepare($sql);
         $stmt->execute([$this->email]);
 
@@ -126,7 +111,7 @@ class Graduate extends User {
 		}
         try {
                 
-            $majorId = fetchMajor($conn);
+            $majorId = $this->fetchMajorId($conn);
 
             $insertMainUser = $conn->prepare(
                 "INSERT INTO `users` (firstname, lastname, emailaddress, userpassword, phoneNumber, userType)
@@ -136,14 +121,13 @@ class Graduate extends User {
 
             $insertGraduate = $conn->prepare(
                 "INSERT INTO `Graduate` (GraduateId, fn, major, class, status, location, majorId)
-                VALUES (:GraduateId, :fn, :major, :class, :status, :location, :majorId)");
+                VALUES (:GraduateId, :fn, :major, :class, :status, :location, :MajorId)");
 
             $insertResultMain = $insertMainUser->execute([
                 'name' => $this->name,
                 'lastname' => $this->lastname,
                 'email' => $this->email,
                 'password' => $hashedPassword,
-                'email' => $this->email,
                 'phoneNumber' => $this->phoneNumber,
                 'userType' => $this->userType,
             ]);
@@ -161,7 +145,7 @@ class Graduate extends User {
                 exit();
             }
 
-            $UserId = fetchUserId($conn);
+            $UserId = $this->fetchUserId($conn);
 
             $insertResultGrad = $insertGraduate->execute([
                 'GraduateId' => $UserId,
@@ -173,9 +157,9 @@ class Graduate extends User {
                 'MajorId' => $majorId,
             ]);
             if ($insertResultGrad) {
-                $this->conn->commit();
+                $conn->commit();
             } else {
-                $this->conn->rollback();
+                $conn->rollback();
             }
 
             
@@ -243,7 +227,7 @@ class Recruiter extends User {
     }
 
     public function fetchUserId (PDO $conn) {
-        $sql = "SELECT UserId FROM User WHERE email = ?";
+        $sql = "SELECT UserId FROM Users WHERE emailaddress = ?";
         $stmt = $conn->prepare($sql);
         $stmt->execute([$this->email]);
 
@@ -265,8 +249,6 @@ class Recruiter extends User {
 			]);
 		}
         try {
-            $majorId = fetchMajor($conn);
-
             $insertMainUser = $conn->prepare(
                 "INSERT INTO `users` (firstname, lastname, emailaddress, userpassword, phoneNumber, userType)
                     VALUES (:name, :lastname, :email, :password, :phoneNumber, :userType)");
@@ -296,20 +278,20 @@ class Recruiter extends User {
                 exit();
             }
 
-            $userId = fetchUserId($conn);
+            $userId = $this->fetchUserId($conn);
 
             $insertRecruiter = $conn->prepare(
                 "INSERT INTO `Recruiter` (RecruiterId, companyName)
                 VALUES (:RecruiterId, :companyName)");
         
-            $insertResult = $insertGraduate->execute([
+            $insertResult = $insertRecruiter->execute([
                 'RecruiterId' => $userId,
                 'companyName'=> $this->companyName,
             ]);
             if ($insertResult) {
-                $this->conn->commit();
+                $conn->commit();
             } else {
-                $this->conn->rollback();
+                $conn->rollback();
             }
         } catch (PDOException $e) {
             echo json_encode([
