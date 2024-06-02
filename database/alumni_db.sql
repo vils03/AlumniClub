@@ -22,7 +22,7 @@ CREATE TABLE Major (
 );
 
 CREATE TABLE Graduate (
-    GraduateId         INT      NOT NULL AUTO_INCREMENT,
+    GraduateId         INT      NOT NULL,
     FN                 VARCHAR(30) NOT NULL,
 	Major              VARCHAR(30) NOT NULL,
 	Class              INT      NOT NULL,
@@ -38,7 +38,7 @@ CREATE TABLE Graduate (
 );
 
 CREATE TABLE Recruiter (
-    RecruiterId      INT         NOT NULL AUTO_INCREMENT,
+    RecruiterId      INT         NOT NULL,
     CompanyName      VARCHAR(50) NOT NULL,  
 
     CONSTRAINT Recruiter_PK         PRIMARY KEY (RecruiterId),
