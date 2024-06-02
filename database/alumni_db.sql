@@ -1,7 +1,7 @@
 CREATE DATABASE AlumniClub;
 
 CREATE TABLE Users (
-    UserId          INT      NOT NULL,
+    UserId          INT      NOT NULL AUTO_INCREMENT,
     FirstName       VARCHAR(30) NOT NULL,
     LastName        VARCHAR(30) NOT NULL,
 	EmailAddress    VARCHAR(30) NOT NULL,
@@ -14,7 +14,7 @@ CREATE TABLE Users (
 );
 
 CREATE TABLE Major (
-    MajorId         INT      NOT NULL,
+    MajorId         INT      NOT NULL AUTO_INCREMENT,
     MajorName            CHAR(30) NOT NULL,  
     -- 
     CONSTRAINT Major_PK PRIMARY KEY (MajorId),
@@ -22,7 +22,7 @@ CREATE TABLE Major (
 );
 
 CREATE TABLE Graduate (
-    GraduateId         INT      NOT NULL,
+    GraduateId         INT      NOT NULL AUTO_INCREMENT,
     FN                 VARCHAR(30) NOT NULL,
 	Major              VARCHAR(30) NOT NULL,
 	Class              INT      NOT NULL,
@@ -38,7 +38,7 @@ CREATE TABLE Graduate (
 );
 
 CREATE TABLE Recruiter (
-    RecruiterId      INT         NOT NULL,
+    RecruiterId      INT         NOT NULL AUTO_INCREMENT,
     CompanyName      VARCHAR(50) NOT NULL,  
 
     CONSTRAINT Recruiter_PK         PRIMARY KEY (RecruiterId),
@@ -47,7 +47,7 @@ CREATE TABLE Recruiter (
 );
 
 CREATE TABLE EventInfo  (
-	EventId         INT NOT NULL,
+	EventId         INT NOT NULL AUTO_INCREMENT,
     EventName       VARCHAR(30)  NOT NULL,
     EventDesc       VARCHAR(200) NOT NULL,  
     CreatedEventDateTime DATETIME NOT NULL,
@@ -57,7 +57,7 @@ CREATE TABLE EventInfo  (
 );
 
 CREATE TABLE UECreated (
-	UECreatedId INT NOT NULL,
+	UECreatedId INT NOT NULL AUTO_INCREMENT,
 	UserId INT NOT NULL,
 	EventId INT NOT NULL,
 
@@ -69,7 +69,7 @@ CREATE TABLE UECreated (
 );
 
 CREATE TABLE UEAccepted (
-	UEAcceptedId INT NOT NULL,
+	UEAcceptedId INT NOT NULL AUTO_INCREMENT,
 	UserId     INT NOT NULL,
 	EventId    INT NOT NULL,
 
@@ -81,7 +81,7 @@ CREATE TABLE UEAccepted (
 );
 
 CREATE TABLE MessagesInfo (
-	MessagesInfoId INT NOT NULL,
+	MessagesInfoId INT NOT NULL AUTO_INCREMENT,
 	SenderId       INT NOT NULL,
 	RecipientId    INT NOT NULL,
 	MessageText    VARCHAR(100) NOT NULL,
@@ -94,7 +94,7 @@ CREATE TABLE MessagesInfo (
 );
 
 CREATE TABLE AdInfo (
-	AdId              INT NOT NULL,
+	AdId              INT NOT NULL AUTO_INCREMENT,
 	RecruiterId       INT NOT NULL,
 	AdName            VARCHAR(50) NOT NULL,
 	AdDesc            VARCHAR(200) NOT NULL,
@@ -105,3 +105,6 @@ CREATE TABLE AdInfo (
         REFERENCES Recruiter (RecruiterId)
 );
 
+
+INSERT INTO major(MajorName) 
+VALUES ("SI"), ("I"), ("IS"), ("KN"), ("M"), ("PM"), ("AD"), ("MI");
