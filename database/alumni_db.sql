@@ -17,7 +17,7 @@ CREATE TABLE Users (
 CREATE TABLE Major (
     MajorId         INT      NOT NULL AUTO_INCREMENT,
     MajorName            CHAR(30) NOT NULL,  
-    -- 
+     
     CONSTRAINT Major_PK PRIMARY KEY (MajorId),
     CONSTRAINT Major_AK UNIQUE      (MajorName)   
 );
@@ -58,27 +58,17 @@ CREATE TABLE EventInfo  (
 	   
 );
 
-CREATE TABLE UECreated (
-	UECreatedId INT NOT NULL AUTO_INCREMENT,
+CREATE TABLE UserToEvent (
+	UserToEventId INT NOT NULL AUTO_INCREMENT,
 	UserId INT NOT NULL,
 	EventId INT NOT NULL,
+    Accepted BIT,
+    Created BIT,
 
-	CONSTRAINT UECreated_PK        PRIMARY KEY (UECreatedId),
-    CONSTRAINT UECreatedToUser_FK  FOREIGN KEY (UserId)
+	CONSTRAINT UserToEvent_PK        PRIMARY KEY (UserToEventId),
+    CONSTRAINT UEToUser_FK  FOREIGN KEY (UserId)
         REFERENCES Users (UserId),
-	CONSTRAINT UECreatedToEvent_FK  FOREIGN KEY (EventId)
-        REFERENCES EventInfo (EventId)
-);
-
-CREATE TABLE UEAccepted (
-	UEAcceptedId INT NOT NULL AUTO_INCREMENT,
-	UserId     INT NOT NULL,
-	EventId    INT NOT NULL,
-
-	CONSTRAINT UEAccepted_PK        PRIMARY KEY (UEAcceptedId),
-    CONSTRAINT UEAcceptedToUser_FK  FOREIGN KEY (UserId)
-        REFERENCES Users (UserId),
-	CONSTRAINT UEAcceptedToEvent_FK  FOREIGN KEY (EventId)
+	CONSTRAINT UEToEvent_FK  FOREIGN KEY (EventId)
         REFERENCES EventInfo (EventId)
 );
 

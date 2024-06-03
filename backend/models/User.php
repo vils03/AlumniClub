@@ -9,7 +9,8 @@ class User {
 	public $phoneNumber;
 	public $userType;
 
-    public function __construct($id, $name, $lastname, $email, $password, $phoneNumber, $userType){
+    public $userImage;
+    public function __construct($id, $name, $lastname, $email, $password, $phoneNumber, $userType, $userImage){
         $this->id = $id;
 		$this->name = $name;
         $this->lastname = $lastname;
@@ -17,6 +18,7 @@ class User {
 		$this->password = $password;
 		$this->phoneNumber = $phoneNumber;
 		$this->userType = $userType;
+        $this->userImage = $userImage;
     }
 
     public function checkLogin(): void {
@@ -44,7 +46,7 @@ class User {
 		}
 		
         if (!password_verify($this->password, $dbUser['UserPassword'])) {
-            throw new Exception("Грешна парола.");
+            throw new Exception("Грешна парола."); 
         }
 
 	}
@@ -97,10 +99,10 @@ class Graduate extends User {
     public $status;
     public $location;
 
-    public function __construct($id, $name, $lastname, $email, $password, $phoneNumber, $userType,
+    public function __construct($id, $name, $lastname, $email, $password, $phoneNumber, $userType, $userImage,
                                     $fn, $major, $class, $status, $location)
     {
-        parent:: __construct($id, $name, $lastname, $email, $password, $phoneNumber, $userType);
+        parent:: __construct($id, $name, $lastname, $email, $password, $phoneNumber, $userType, $userImage);
         $this->id = $id;
 		$this->fn = $fn;
 		$this->major = $major;
@@ -144,8 +146,8 @@ class Graduate extends User {
             $majorId = $this->fetchMajorId($conn);
 
             $insertMainUser = $conn->prepare(
-                "INSERT INTO `users` (firstname, lastname, emailaddress, userpassword, phoneNumber, userType)
-                    VALUES (:name, :lastname, :email, :password, :phoneNumber, :userType)");
+                "INSERT INTO `users` (firstname, lastname, emailaddress, userpassword, phoneNumber, userType, userImage)
+                    VALUES (:name, :lastname, :email, :password, :phoneNumber, :userType, :userImage)");
                 
             $hashedPassword = password_hash($this->password, PASSWORD_DEFAULT);
 
@@ -160,6 +162,7 @@ class Graduate extends User {
                 'password' => $hashedPassword,
                 'phoneNumber' => $this->phoneNumber,
                 'userType' => $this->userType,
+                'userImage' => $this->userImage,
             ]);
 
             if (!$insertResultMain) {
@@ -172,7 +175,6 @@ class Graduate extends User {
                     $errorMessage = "Грешка при запис на информацията.";
                 }
                 throw new Exception($errorMessage);
-                exit();
             }
 
             $UserId = $this->fetchUserId($conn);
@@ -248,10 +250,10 @@ class Recruiter extends User {
     public $id;
     public $companyName;
 
-    public function __construct($id, $name, $lastname, $email, $password, $phoneNumber, $userType,
+    public function __construct($id, $name, $lastname, $email, $password, $phoneNumber, $userType, $userImage,
                                     $companyName)
     {
-        parent:: __construct($id, $name, $lastname, $email, $password, $phoneNumber, $userType);
+        parent:: __construct($id, $name, $lastname, $email, $password, $phoneNumber, $userType, $userImage);
         $this->id = $id;
 		$this->companyName = $companyName;
     }
@@ -280,8 +282,8 @@ class Recruiter extends User {
 		}
         try {
             $insertMainUser = $conn->prepare(
-                "INSERT INTO `users` (firstname, lastname, emailaddress, userpassword, phoneNumber, userType)
-                    VALUES (:name, :lastname, :email, :password, :phoneNumber, :userType)");
+                "INSERT INTO `users` (firstname, lastname, emailaddress, userpassword, phoneNumber, userType, userImage)
+                    VALUES (:name, :lastname, :email, :password, :phoneNumber, :userType, :userImage)");
                 
             $hashedPassword = password_hash($this->password, PASSWORD_DEFAULT);
 
@@ -290,9 +292,9 @@ class Recruiter extends User {
                 'lastname' => $this->lastname,
                 'email' => $this->email,
                 'password' => $hashedPassword,
-                'email' => $this->email,
                 'phoneNumber' => $this->phoneNumber,
                 'userType' => $this->userType,
+                'userImage' => $this->userImage,
             ]);
 
             if (!$insertResultMain) {
@@ -305,7 +307,6 @@ class Recruiter extends User {
                     $errorMessage = "Грешка при запис на информацията.";
                 }
                 throw new Exception($errorMessage);
-                exit();
             }
 
             $userId = $this->fetchUserId($conn);

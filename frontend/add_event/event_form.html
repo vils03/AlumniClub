@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="add_event.js" defer></script>
+    <link rel='stylesheet' href="style.css">
+    <title>Add event</title>
+</head>
+<body>
+    <header>Add event</header>
+    <main>
+        <form id="add-event-form">
+            <label for="name">Име на събитието: </label>
+            <input id="name" type="text">
+            <label for="description">Описание на събитието: </label>
+            <input id="description" type="text">
+            <label for="date">Дата и час на събитието: </label>
+            <input type="datetime-local" id="date">
+            <label for="image">Добави снимка: </label>
+            <input type="file" id="image" accept="image/*">
+            <button>Добави събитие</button>
+            <h2 id="reg-not-success" class="reg-not-success"></h2>
+            <h2 id="reg-success" class="reg-success"></h2>
+        </form>
+    </main>
+</body>
+</html>

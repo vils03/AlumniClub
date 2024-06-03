@@ -5,12 +5,14 @@ class Event{
     public $name;
     public $description;
     public $createdDateTime;
+    public $eventImage;
 
-    public function __construct($id, $name, $description, $createdDateTime){
+    public function __construct($id, $name, $description, $createdDateTime, $eventImage){
         $this->id = $id;
         $this->name = $name;
         $this->description = $description;
         $this->createdDateTime = $createdDateTime;
+        $this->eventImage = $eventImage;
     }
 
     public function validateEvent() : void {
@@ -37,11 +39,28 @@ class Event{
         }
     }
 
-    public function saveInDB() : void {
+    public function fetchUserId (PDO $conn, $email) {
+        $sql = "SELECT UserId FROM Users WHERE emailaddress = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([$email]);
+
+        return $stmt->fetch(PDO::FETCH_ASSOC)["UserId"];
+    }
+
+    public function fetchEventId (PDO $conn, $name, $description) {
+        $sql = "SELECT EventId FROM EventInfo WHERE EventName = ? AND EventDesc= ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([$name, $description]);
+
+        return $stmt->fetch(PDO::FETCH_ASSOC)["EventId"];
+    }
+
+    public function saveInDB($email) : void {
         require_once "../db/db.php";
         try{
             $db = new DB();
-            $con = $db->getConnection();
+            $conn = $db->getConnection();
+            $conn->beginTransaction();
         }
         catch(PDOException $e){
             echo json_encode([
@@ -49,15 +68,50 @@ class Event{
                 'message' => 'Неуспешно свързване с базата от данни!'
             ]);
         }
-        $statement = $con->prepare(
-            "INSERT INTO `eventinfo` (EventName, EventDesc, CreatedEventDateTime) 
-             VALUES (:name, :description, :createdDateTime)"
-        );
-        $result = $statement->execute([
-            'name' => $this->name,
-            'description' => $this->description,
-            'createdDateTime' => $this->createdDateTime
-        ]);
+        try{
+            $statement = $conn->prepare(
+                "INSERT INTO `eventinfo` (EventName, EventDesc, CreatedEventDateTime, EventImage) 
+                VALUES (:name, :description, :createdDateTime, :eventImage)"
+            );
+
+            $userId = $this->fetchUserId($conn, $email);
+            $eventId = $this->fetchEventId($conn, $this->name, $this->description);
+
+            $statementCross = $conn->prepare(
+                "INSERT INTO `usertoevent` (UserId, EventId, Accepted, Created)
+                VALUES (:userid, :eventid, :accepted, :created)"
+            );
+
+            $resultEvent = $statement->execute([
+                'name' => $this->name,
+                'description' => $this->description,
+                'createdDateTime' => $this->createdDateTime,
+                'eventImage' => $this->eventImage
+            ]);
+
+
+            $resultCross = $statementCross->execute([
+                'userid' => $userId,
+                'eventid' => $eventId,
+                'accepted' => 1,
+                'created' => 1
+            ]);
+            if ($resultCross) {
+                $conn->commit();
+            } else {
+                $conn->rollback();
+            }
+        }
+        catch(PDOException $e)
+        {
+            echo json_encode([
+                'success' => false,
+                'message' => $e->getMessage()
+            ]);
+            exit();
+        }
+
+        
         if(!$result){
             throw new Exception("Грешка при запис в базата данни: " . $statement->errorInfo()[2]);
         }

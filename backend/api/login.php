@@ -3,6 +3,7 @@
 $phpInput = json_decode(file_get_contents('php://input'), true);
 require_once "../models/User.php";
 mb_internal_encoding("UTF-8");
+session_start();
 
 
 if (empty($phpInput['email'])){ 
@@ -22,13 +23,13 @@ else {
         $email = $phpInput['email'];
         $password = $phpInput['password'];
 
-        $user = new User(null, null, null, $email, $password, null, null);
+        $user = new User(null, null, null, $email, $password, null, null, null);
 
         try {
 
             $user->checkLogin();
 
-            //$_SESSION['email'] = $phpInput['email'];
+            $_SESSION['email'] = $phpInput['email'];
 
             echo json_encode([
                 'success' => true,

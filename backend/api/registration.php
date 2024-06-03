@@ -6,12 +6,12 @@ mb_internal_encoding("UTF-8");
 
 if($phpInput['type'] == 'graduate'){
     $user = new Graduate(null, $phpInput['name'], $phpInput["last-name"], $phpInput['email'], $phpInput['password'], 
-                            $phpInput['phone-number'], $phpInput['type'], $phpInput['fn'], $phpInput['major'], 
+                            $phpInput['phone-number'], $phpInput['type'], 'default_pic.jpg',$phpInput['fn'], $phpInput['major'], 
                             $phpInput['class'], $phpInput['status'], $phpInput['location']);
 }
 else{
     $user = new Recruiter(null, $phpInput['name'], $phpInput["last-name"], $phpInput['email'], $phpInput['password'], 
-    $phpInput['phone-number'], $phpInput['type'], $phpInput['company']);
+    $phpInput['phone-number'], $phpInput['type'], 'default_pic.jpg', $phpInput['company']);
 }
 
 try {

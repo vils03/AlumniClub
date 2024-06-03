@@ -1,16 +1,16 @@
-const loginForm = document.getElementById('login-form');
+const loginForm = document.getElementById('add-event-form');
 loginForm.addEventListener('submit', (event) => {
     event.preventDefault();
     const inputs = loginForm.querySelectorAll('input');
 
-    const userData = {};
+    const eventData = {};
     inputs.forEach(input => {
-        userData[input.id] = input.value;
+        eventData[input.id] = input.value;
     });
 
-    fetch('../../backend/api/login.php', {
+    fetch('../../backend/api/add_event.php', {
         method: 'POST',
-        body: JSON.stringify(userData),
+        body: JSON.stringify(eventData),
     })
     .then(response=>response.json())
     .then(response=>{

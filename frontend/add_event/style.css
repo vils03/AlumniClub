@@ -1,0 +1,13 @@
+.reg-not-success{
+    display: none;
+    color: red;
+}
+
+.reg-success{
+    display:none;
+    color: green;
+}
+
+*{
+    display: block;
+}
