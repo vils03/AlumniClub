@@ -5,9 +5,10 @@ CREATE TABLE Users (
     FirstName       VARCHAR(30) NOT NULL,
     LastName        VARCHAR(30) NOT NULL,
 	EmailAddress    VARCHAR(30) NOT NULL,
-	UserPassword    VARCHAR(30) NOT NULL,
+	UserPassword    VARCHAR(256) NOT NULL,
     PhoneNumber     VARCHAR(30) NOT NULL,
     UserType        VARCHAR(30) NOT NULL,
+    UserImage       VARCHAR(50) NOT NULL
      
     CONSTRAINT User_PK  PRIMARY KEY (UserId),
     CONSTRAINT User_AK3 UNIQUE (EmailAddress)
@@ -51,6 +52,7 @@ CREATE TABLE EventInfo  (
     EventName       VARCHAR(30)  NOT NULL,
     EventDesc       VARCHAR(200) NOT NULL,  
     CreatedEventDateTime DATETIME NOT NULL,
+    EventImage      VARCHAR(50) NOT NULL
 
     CONSTRAINT Country_PK PRIMARY KEY (EventId)
 	   
