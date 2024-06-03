@@ -74,9 +74,6 @@ class Event{
                 VALUES (:name, :description, :createdDateTime, :eventImage)"
             );
 
-            $userId = $this->fetchUserId($conn, $email);
-            $eventId = $this->fetchEventId($conn, $this->name, $this->description);
-
             $statementCross = $conn->prepare(
                 "INSERT INTO `usertoevent` (UserId, EventId, Accepted, Created)
                 VALUES (:userid, :eventid, :accepted, :created)"
@@ -88,7 +85,9 @@ class Event{
                 'createdDateTime' => $this->createdDateTime,
                 'eventImage' => $this->eventImage
             ]);
-
+            
+            $userId = $this->fetchUserId($conn, $email);
+            $eventId = $this->fetchEventId($conn, $this->name, $this->description);
 
             $resultCross = $statementCross->execute([
                 'userid' => $userId,

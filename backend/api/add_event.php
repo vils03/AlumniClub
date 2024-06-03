@@ -1,6 +1,6 @@
 <?php
 
-    require_once('Event.php');
+require_once "../models/Event.php";
     session_start();
     $phpInput = json_decode(file_get_contents('php://input'), true);
 
@@ -34,10 +34,11 @@
         try {
 
             $event->validateEvent();
-            $event->saveInDB();
-
             $_SESSION['email'] = $phpInput['email'];
 
+            $event->saveInDB($_SESSION['email']);
+
+            
             echo json_encode([
                 'success' => true,
                 'email' => $email,
