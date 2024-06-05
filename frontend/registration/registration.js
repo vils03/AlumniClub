@@ -49,6 +49,7 @@ registrationForm.addEventListener('submit', (event) => {
             var messageBox = document.getElementById("reg-success");
             messageBox.style.display = 'block';
             messageBox.innerText = "bravo";
+            window.location.replace("../login/login.html");
         }
         else{
             var messageBox = document.getElementById("reg-not-success");

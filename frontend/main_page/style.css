@@ -1,0 +1,26 @@
+.wrapper{
+    display: flex;
+}
+
+.user-info{
+    width: 20%;
+    background-color: blue;
+}
+
+header{
+    height: 10%;
+    width: 80%;
+    background-color: aqua;
+}
+
+main{
+    height: 80%;
+    width: 80%;
+    background-color: darkgrey;
+}
+
+footer{
+    height: 10%;
+    width: 80%;
+    background-color: chocolate;
+}
