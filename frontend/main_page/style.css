@@ -20,6 +20,24 @@ body {
     font-size: 50px;
 }
 
+.h-left {
+    float: left;
+    width: 25%;
+    padding-right: 20px;
+    background-color: #f1f1f1;
+}
+
+.logo-img {
+    background-color: #b1b0b0;
+    padding: 20px;
+    width: 100%;
+}
+
+.h-right {
+    float: right;
+    width: 75%;
+}
+
 /* style for navbar */
 .navbar {
     overflow: hidden;
@@ -66,7 +84,7 @@ body {
 }
 
 .user-img {
-    background-color: #b1b0b0;
+    /*background-color: #b1b0b0; */
     padding: 20px;
     width: 100%;
 }

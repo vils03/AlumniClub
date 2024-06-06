@@ -1,13 +1,198 @@
-.reg-not-success{
-    display: none;
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Comfortaa;
+    padding: 10px;
+    background-color: #f1f1f1;
+}
+
+/* style for header */
+
+.header {
+    padding: 30px;
+    text-align: center;
+    background-color: #f1f1f1;
+}
+
+.header h1 {
+    font-size: 50px;
+}
+
+.h-left {
+    float: left;
+    width: 25%;
+    padding-right: 20px;
+    background-color: #f1f1f1;
+}
+
+.logo-img {
+    background-color: #b1b0b0;
+    padding: 20px;
+    width: 100%;
+}
+
+.h-right {
+    float: right;
+    width: 75%;
+}
+
+/* style for navbar */
+.navbar {
+    overflow: hidden;
+    background-color:#4b0082;
+    display: flex;
+    justify-content: center; /* Center items horizontally */
+    align-items: center;    /* Center items vertically */
+}
+
+.navbar a {
+    float: right;
+    display: block;
+    color:#f2f2f2;
+    text-align: center;
+    font-size: 20px;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.navbar a:hover {
+    background-color: #e6e6fa;
+    color: black;
+}
+
+.leftcolumn {
+    float: left;
+    width: 25%;
+    padding-right: 20px;
+    background-color: #f1f1f1;
+}
+.rightcolumn {
+    float: right;
+    width: 75%;
+}
+
+/*style for adding an event form*/
+.add-event-card {
+    background-color: white;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 5px;
+}
+
+.form-item-label {
+    float: left;
+    width: 25%;
+    margin-top: 6px;
+}
+  
+.form-item-input {
+    float: left;
+    width: 75%;
+    margin-top: 6px;
+}
+
+.form-item-label label{
+    display: block;
+    margin-bottom: 5px;
+    color: #23013a;
+    font-size: 20px;
+}
+
+/* Additional Styles for Labels */
+label.required::after {
+    content: " *";
     color: red;
 }
 
-.reg-success{
-    display:none;
-    color: green;
+label.fancy {
+    font-family: 'Courier New', Courier, monospace;
+    font-style: italic;
+    color: #007bff;
 }
 
-*{
-    display: block;
+input[type="file"] {
+    display: none; /* Hide the default file input */
+}
+
+.form-item-input input, textarea {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-item-button button{
+    width: 100%;
+    background-color:#4b0082;
+    color: white;
+    font-size: 20px;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.form-item-button button:hover {
+    background-color: #965bc0;
+}
+
+/* Clear floats after the columns */
+.row-form::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+    .form-item-input, .form-item-label, .form-item-button button {
+      width: 100%;
+      margin-top: 0;
+    }
+}
+  
+.user-img {
+    /*background-color: #b1b0b0; */
+    padding: 20px;
+    width: 100%; 
+}
+.user-card {
+    background-color: white;
+    padding: 20px;
+}
+
+/* Clear floats after the columns */
+.row::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 800px) {
+    .leftcolumn, .rightcolumn {   
+      width: 100%;
+      padding: 0;
+    }
+}
+  
+/* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
+@media screen and (max-width: 400px) {
+    .topnav a {
+      float: none;
+      width: 100%;
+    }
+}
+/* style for footer */
+.footer {
+    padding: 20px;
+    text-align: center;
+    background-color: #dcd0ff;
+    margin-top: 20px;
 }
