@@ -27,10 +27,17 @@ body {
     background-color: #f1f1f1;
 }
 
-.logo-img {
+/* .logo-img {
+    display: flex;
     background-color: #b1b0b0;
     padding: 20px;
     width: 100%;
+    margin-right: 20px;
+} */
+
+.logo-img img {
+    height: 100px; /* Adjust height as needed */
+    display: flex;
 }
 
 .h-right {
@@ -157,10 +164,11 @@ input[type="file"] {
     }
 }
   
-.user-img {
+.user-img img{
     /*background-color: #b1b0b0; */
-    padding: 20px;
-    width: 100%; 
+    display: flex;
+    background-color: #b1b0b0;
+    height: 100px; 
 }
 .user-card {
     background-color: white;
