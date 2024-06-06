@@ -11,8 +11,15 @@
             $this->name = $name;
             $this->description = $description;
         }
+        public function fetchUserId (PDO $conn, $email) {
+            $sql = "SELECT UserId FROM Users WHERE emailaddress = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->execute([$email]);
+    
+            return $stmt->fetch(PDO::FETCH_ASSOC)["UserId"];
+        }
 
-        public function saveInDB() : void{
+        public function saveInDB($email) : void{
             require_once "../db/db.php";
             try{
                 $db = new DB();
@@ -28,8 +35,9 @@
                 "INSERT INTO `adinfo` (RecruiterId, AdName, AdDesc) 
                 VALUES (:recruiterId, :name, :description)"
             );
+            $userId = $this->fetchUserId($conn, $email);
             $result = $statement->execute([
-                'recruiterId' => $this->recruiterId,
+                'recruiterId' => $userId,
                 'name' => $this->name,
                 'description' => $this->description
             ]);
