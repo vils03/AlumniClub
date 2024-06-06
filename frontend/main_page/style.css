@@ -1,26 +1,106 @@
-.wrapper{
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Comfortaa;
+    padding: 10px;
+    background-color: #f1f1f1;
+}
+
+/* style for header */
+
+.header {
+    padding: 30px;
+    text-align: center;
+    background-color: #f1f1f1;
+}
+
+.header h1 {
+    font-size: 50px;
+}
+
+/* style for navbar */
+.navbar {
+    overflow: hidden;
+    background-color:#4b0082;
     display: flex;
+    justify-content: center; /* Center items horizontally */
+    align-items: center;    /* Center items vertically */
 }
 
-.user-info{
-    width: 20%;
-    background-color: blue;
+.navbar a {
+    float: right;
+    display: block;
+    color:#f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
 }
 
-header{
-    height: 10%;
-    width: 80%;
-    background-color: aqua;
+.navbar a:hover {
+    background-color: #e6e6fa;
+    color: black;
 }
 
-main{
-    height: 80%;
-    width: 80%;
-    background-color: darkgrey;
+.leftcolumn {
+    float: left;
+    width: 25%;
+    padding-right: 20px;
+    background-color: #f1f1f1;
+}
+.rightcolumn {
+    float: right;
+    width: 75%;
 }
 
-footer{
-    height: 10%;
-    width: 80%;
-    background-color: chocolate;
+.event-img {
+    background-color: #b1b0b0;
+    padding: 20px;
+    width: 100%;
+}
+.event-card {
+    background-color: white;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.user-img {
+    background-color: #b1b0b0;
+    padding: 20px;
+    width: 100%;
+}
+.user-card {
+    background-color: white;
+    padding: 20px;
+}
+
+/* Clear floats after the columns */
+.row::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 800px) {
+    .leftcolumn, .rightcolumn {   
+      width: 100%;
+      padding: 0;
+    }
+}
+  
+/* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
+@media screen and (max-width: 400px) {
+    .topnav a {
+      float: none;
+      width: 100%;
+    }
+}
+/* style for footer */
+.footer {
+    padding: 20px;
+    text-align: center;
+    background-color: #dcd0ff;
+    margin-top: 20px;
 }
