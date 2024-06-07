@@ -1,13 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;700&display=swap');
+
 * {
     box-sizing: border-box;
 }
 
-.flex {
+.container {
     display:flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
 }
 
 body {
-    font-family: Comfortaa;
+    font-family: 'Comfortaa', sans-serif;
+    font-style: normal;
     padding: 10px;
     background-color: #f1f1f1;
 }
@@ -22,14 +27,12 @@ header {
 
 header h1 {
     font-size: 50px;
-    width: 75%;
     padding-right: 20px;
     background-color: #f1f1f1;
 }
 
 
 .logo-img {
-    background-color: #b1b0b0;
     padding: 20px;
     width: 25%;
     margin-right: 20px;
@@ -44,15 +47,15 @@ header h1 {
 nav {
     overflow: hidden;
     background-color:#4b0082;
-    justify-content: center; /* Center items horizontally */
+    justify-content: space-evenly; /* Center items horizontally */
     align-items: center;    /* Center items vertically */
 }
 
 nav a {
     display: block;
     color:#f2f2f2;
-    text-align: center;
     font-size: 20px;
+    text-align: center;
     padding: 14px 16px;
     text-decoration: none;
 }
@@ -62,9 +65,6 @@ nav a:hover {
     color: black;
 }
 
-.container {
-    flex-wrap: wrap;
-}
 
 .leftcolumn {
     float: left;
@@ -170,7 +170,9 @@ input[type="file"] {
 .user-card {
     background-color: white;
     padding: 20px;
+    margin-top: 20px;
 }
+
 
 /* Clear floats after the columns
 .row::after {
@@ -180,7 +182,7 @@ input[type="file"] {
 } */
 
 /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
-@media screen and (max-width: 800px) {
+/* @media screen and (max-width: 800px) {
     .leftcolumn, .rightcolumn {   
       width: 100%;
       padding: 0;
@@ -188,12 +190,12 @@ input[type="file"] {
 }
   
 /* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
-@media screen and (max-width: 400px) {
+/* @media screen and (max-width: 400px) {
     .topnav a {
       float: none;
       width: 100%;
     }
-}
+} */ 
 /* style for footer */
 footer {
     padding: 20px;

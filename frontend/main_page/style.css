@@ -1,16 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;700&display=swap');
+
 * {
     box-sizing: border-box;
 }
 
-.flex {
+.container {
     display:flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
 }
 
+
 body {
-    font-family: Comfortaa;
+    font-family: 'Comfortaa', sans-serif;
+    font-style: normal;
+    font-size: 16px;
     padding: 10px;
     background-color: #f1f1f1;
 }
+
 
 /* style for header */
 
@@ -21,17 +29,15 @@ header {
 }
 
 header h1 {
-    font-size: 50px;
-    width: 75%;
+    font-size: 4rem;
     padding-right: 20px;
     background-color: #f1f1f1;
 }
 
 .logo-img {
-    background-color: #b1b0b0;
     padding: 20px;
     width: 25%;
-    margin-right: 20px;
+    /* margin-right: 20px; */
 }
 
 .logo-img img {
@@ -42,7 +48,7 @@ header h1 {
 nav {
     overflow: hidden;
     background-color:#4b0082;
-    justify-content: center; /* Center items horizontally */
+    justify-content: space-evenly; /* Center items horizontally */
     align-items: center;    /* Center items vertically */
 }
 
@@ -59,17 +65,17 @@ nav a:hover {
     color: black;
 }
 
-.container {
-    flex-wrap: wrap;
-}
 
 .leftcolumn {
-    width: 25%;
-    padding-right: 20px;
+    width: 23%;
+    padding: 5px;
+    margin-right: 2px;
     background-color: #f1f1f1;
 }
 .rightcolumn {
-    width: 75%;
+    width: 73%;
+    padding: 5px;
+    background-color: #f1f1f1;
 }
 
 .event-img {
@@ -91,6 +97,18 @@ nav a:hover {
 .user-card {
     background-color: white;
     padding: 20px;
+    margin-top: 20px;
+    border-bottom-style: groove;
+}
+
+.accepted-events {
+    background-color: white;
+    padding: 20px;
+}
+
+.accepted-event-container {
+    background-color: white;
+    padding: 20px;
 }
 
 /* Clear floats after the columns
@@ -100,7 +118,7 @@ nav a:hover {
     clear: both;
 } */
 
-/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
+/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other
 @media screen and (max-width: 800px) {
     .leftcolumn, .rightcolumn {   
       width: 100%;
@@ -109,16 +127,20 @@ nav a:hover {
 }
   
 /* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
-@media screen and (max-width: 400px) {
+/* @media screen and (max-width: 400px) {
     .topnav a {
       float: none;
       width: 100%;
     }
-}
+} */ 
+
 /* style for footer */
 footer {
     padding: 20px;
-    text-align: center;
     background-color: #dcd0ff;
     margin-top: 20px;
+}
+
+footer h2 {
+    text-align: center;
 }
