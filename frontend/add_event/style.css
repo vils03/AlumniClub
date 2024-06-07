@@ -2,6 +2,10 @@
     box-sizing: border-box;
 }
 
+.flex {
+    display:flex;
+}
+
 body {
     font-family: Comfortaa;
     padding: 10px;
@@ -10,52 +14,41 @@ body {
 
 /* style for header */
 
-.header {
+header {
     padding: 30px;
     text-align: center;
     background-color: #f1f1f1;
 }
 
-.header h1 {
+header h1 {
     font-size: 50px;
-}
-
-.h-left {
-    float: left;
-    width: 25%;
+    width: 75%;
     padding-right: 20px;
     background-color: #f1f1f1;
 }
 
-/* .logo-img {
-    display: flex;
+
+.logo-img {
     background-color: #b1b0b0;
     padding: 20px;
-    width: 100%;
+    width: 25%;
     margin-right: 20px;
-} */
+}
 
 .logo-img img {
     height: 100px; /* Adjust height as needed */
-    display: flex;
 }
 
-.h-right {
-    float: right;
-    width: 75%;
-}
 
 /* style for navbar */
-.navbar {
+nav {
     overflow: hidden;
     background-color:#4b0082;
-    display: flex;
     justify-content: center; /* Center items horizontally */
     align-items: center;    /* Center items vertically */
 }
 
-.navbar a {
-    float: right;
+nav a {
     display: block;
     color:#f2f2f2;
     text-align: center;
@@ -64,9 +57,13 @@ body {
     text-decoration: none;
 }
 
-.navbar a:hover {
+nav a:hover {
     background-color: #e6e6fa;
     color: black;
+}
+
+.container {
+    flex-wrap: wrap;
 }
 
 .leftcolumn {
@@ -149,12 +146,12 @@ input[type="file"] {
     background-color: #965bc0;
 }
 
-/* Clear floats after the columns */
+/* Clear floats after the columns
 .row-form::after {
     content: "";
     display: table;
     clear: both;
-}
+} */
 
 /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
 @media screen and (max-width: 600px) {
@@ -175,12 +172,12 @@ input[type="file"] {
     padding: 20px;
 }
 
-/* Clear floats after the columns */
+/* Clear floats after the columns
 .row::after {
     content: "";
     display: table;
     clear: both;
-}
+} */
 
 /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
 @media screen and (max-width: 800px) {
@@ -198,7 +195,7 @@ input[type="file"] {
     }
 }
 /* style for footer */
-.footer {
+footer {
     padding: 20px;
     text-align: center;
     background-color: #dcd0ff;

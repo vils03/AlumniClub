@@ -7,26 +7,34 @@
     <title>Main page</title>
 </head>
 <body>
-    <section class="header">
-        <section class="h-left">
-            <section class="logo-img">
-                <img src="./files/images/logo.png" alt="Logo">
-            </section>
+    <header class="flex">
+        <section class="logo-img">
+            <img src="../../files/images/logo2.png" alt="Logo">
         </section>
-        <section class="h-right">
-            <h1> Алумни клуб ФМИ </h1>
-        </section>
-    </section>
-    
-    <section class="row">
-        <section class="rightcolumn">
-            <section class="navbar">
-                <a href="#">Начало</a>
-                <a href="#">Добави събитие</a>
-                <a href="#">Обяви</a>
-                <a href="#">Преглед на профил</a>
-                <a href="#">Съобщения</a>
+        <h1> Алумни клуб ФМИ </h1>
+    </header>
+    <nav class="navbar flex">
+        <a href="#">Начало</a>
+        <a href="#">Добави събитие</a>
+        <a href="#">Обяви</a>
+        <a href="#">Преглед на профил</a>
+        <a href="#">Съобщения</a>
+    </nav>
+    <div class="container flex">
+        <aside class="leftcolumn">
+            <section class="user-card">
+                <section class="user-img">
+                    <img src="../../files/images/default_pic.jpg" alt="User Default">
+                </section>
+                <h2>Name</h2>
+                <section class="user-bio">
+                    <p>Some text about user in culpa qui officia deserunt mollit anim..</p>
+                </section>
             </section>
+            <section class="accepted-events">
+            </section>
+        </aside>
+        <main class="rightcolumn">
             <section class="event-card">
                 <h2>Event title</h2>
                 <h5>Date created</h5>
@@ -37,21 +45,10 @@
                         Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
                 </section>
             </section>
-        </section>
-        <section class="leftcolumn">
-            <section class="user-card">
-                <section class="user-img">
-                    <img src="/AlumniClub/files/images/default_pic.png" alt="User Default">
-                </section>
-                <h2>Name</h2>
-                <section class="user-bio">
-                    <p>Some text about user in culpa qui officia deserunt mollit anim..</p>
-                </section>
-            </section>
-        </section>
-    </section>
-    <section class="footer">
+        </main>
+    </div>
+    <footer>
         <h2> All rights reserved. Alumni Club @FMI since 2024.</h2>
-    </section>
+    </footer>
 </body>
 </html>
