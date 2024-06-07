@@ -8,25 +8,32 @@
     <title>Add event</title>
 </head>
 <body>
-    <section class="header">
-        <section class="h-left">
-            <section class="logo-img">
-                <img src="./files/images/logo.png" alt="Logo">
-            </section>
+    <header class="flex">
+        <section class="logo-img">
+            <img src="../../files/images/logo2.png" alt="Logo">
         </section>
-        <section class="h-right">
-            <h1> Добави събитие </h1>
-        </section>
-    </section>
-    <section class="row">
-        <section class="rightcolumn">
-            <section class="navbar">
-                <a href="#">Начало</a>
-                <a href="#">Добави събитие</a>
-                <a href="#">Обяви</a>
-                <a href="#">Преглед на профил</a>
-                <a href="#">Съобщения</a>
+        <h1> Добави събитие </h1>
+    </header>
+    <nav class="navbar flex">
+        <a href="#">Начало</a>
+        <a href="#">Добави събитие</a>
+        <a href="#">Обяви</a>
+        <a href="#">Преглед на профил</a>
+        <a href="#">Съобщения</a>
+    </nav>
+    <div class="container flex">
+        <aside class="leftcolumn">
+            <section class="user-card">
+                <section class="user-img">
+                    <img src="../../files/images/default_pic.jpg" alt="User Default">
+                </section>
+                <h2>Name</h2>
+                <section class="user-bio">
+                    <p>Some text about user in culpa qui officia deserunt mollit anim..</p>
+                </section>
             </section>
+        </aside>
+        <main class="rightcolumn">
             <section class="add-event-card">
                 <form id="add-event-form">
                     <div class="row-form">
@@ -68,21 +75,10 @@
                     <h2 id="reg-success" class="reg-success"></h2> --> 
                 </form>
             </section>
-        </section>
-        <section class="leftcolumn">
-            <section class="user-card">
-                <section class="user-img">
-                    <img src="./files/images/default_pic.png" alt="User Default">
-                </section>
-                <h2>Name</h2>
-                <section class="user-bio">
-                    <p>Some text about user in culpa qui officia deserunt mollit anim..</p>
-                </section>
-            </section>
-        </section>
-    </section>
-    <section class="footer">
+        </main>
+    </div>
+    <footer>
         <h2> All rights reserved. Alumni Club @FMI since 2024.</h2>
-    </section>
+    </footer>
 </body>
 </html>
