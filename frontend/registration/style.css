@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;700&display=swap');
+
 *{
-    display:block;
+    font-family: 'Comfortaa', sans-serif;
 }
 
 .additional{
@@ -18,4 +20,23 @@
 .reg-success{
     display:none;
     color: green;
+}
+
+
+body{
+    /* background-color: #e6e6fa; */
+    background: linear-gradient(0deg, rgba(230,230,250,1) 0%, rgba(255,255,255,1) 100%);
+    background-repeat: no-repeat;
+    overflow-y: hidden;
+    font-size: 16px;
+}
+
+form{
+    display: block;
+    align-items: flex-end;
+}
+
+.grad-img{
+    height: 30%;
+    align-self: flex-end;
 }

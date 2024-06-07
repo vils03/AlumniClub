@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;700&display=swap');
+
+*{
+    font-family: 'Comfortaa', sans-serif;
+}
+
+body{
+    /* background-color: #e6e6fa; */
+    background: linear-gradient(0deg, rgba(230,230,250,1) 0%, rgba(255,255,255,1) 100%);
+    background-repeat: no-repeat;
+    overflow-y: hidden;
+    font-size: 16px;
+}
+
+
+main{
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.grad-img{
+    height: 40%;
+}
+
+.bg-image{
+    z-index: -1;
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    opacity: 60%;
+}
+
+.buttons-container{
+    display: flex;
+    flex-direction: wrap;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.logo{
+    align-items: center;
+    margin-bottom: 0%;
+    height: 30%;
+}
+
+button {
+  background-color: #4b0082;
+  border-radius: 100px;
+  box-shadow: 5px 5px 5px #b557f866;
+  color: white;
+  /* color: #d9b3ff; */
+  cursor: pointer;
+  padding: 7px 20px;
+  /* margin: 5px; */
+  text-align: center;
+  transition: all 250ms;
+  border: 0;
+  font-size: 1.5vw;
+  font-weight: bolder;
+  touch-action: manipulation;
+
+  width: 20%;
+}
+
+button:hover {
+  box-shadow: 5px 5px 5px #bf80ff;
+  transform: scale(1.05) rotate(-1deg);
+}
+
+p{
+    color: #4b0082;
+}
