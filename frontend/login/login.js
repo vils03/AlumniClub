@@ -15,12 +15,10 @@ loginForm.addEventListener('submit', (event) => {
     .then(response=>response.json())
     .then(response=>{
         if(response.success){
-            let messageBox = document.getElementById("reg-success");
-            messageBox.style.display = 'block';
-            messageBox.innerText = "bravo";
+            window.location.replace("../main_page/main.html");
         }
         else{
-            let messageBox = document.getElementById("reg-not-success");
+            var messageBox = document.getElementById("reg-not-success");
             messageBox.style.display = 'block';
             messageBox.innerText = response.message;
         }

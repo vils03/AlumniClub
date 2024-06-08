@@ -12,53 +12,83 @@
         <h1>Добре дошли в Алумни клуб!</h1>
     </header>
     <main>
-        <form id="register-form">
+        <img src="../../files/images/cloud.png" class="bg-image" />
+        <div class="main-flex">
+        <form id="register-form" class="reg-form">
             <section id="main-info">
-                <label for="name">Име: </label>
-                <input type="text" id="name">
-                <label for="last-name">Фамилия: </label>
-                <input type="text" id="last-name">
-                <label for="email">Имейл: </label>
-                <input type="email" id="email">
-                <label for="password">Парола: </label>
-                <input type="password" id="password">
-                <label for="phone-number">Телефонен номер: </label>
-                <input type="tel" id="phone-number">
-                <label><input type="radio" name="user_type" id="recruiter" value="recruiter">Рекрутър</label>
-                <label><input type="radio" name="user_type" id="graduate" value="graduate">Завършил студент</label>
+                <div class="row-form">
+                    <label class="form-label" for="name">Име: </label>
+                    <input class="form-input" type="text" id="name" placeholder="Име">
+                </div>
+                <div class="row-form">
+                    <label class="form-label" for="last-name">Фамилия: </label>
+                    <input class="form-input" type="text" id="last-name" placeholder="Фамилия">
+                </div>
+                <div class="row-form">
+                    <label class="form-label" for="email">Имейл: </label>
+                    <input class="form-input" type="email" id="email" placeholder="email">
+                </div>
+                <div class="row-form">
+                    <label class="form-label" for="password">Парола: </label>
+                    <input class="form-input" type="password" id="password" placeholder="Парола">
+                </div>
+                <div class="row-form">
+                    <label class="form-label" for="phone-number">Телефонен номер: </label>
+                    <input class="form-input" type="tel" id="phone-number" placeholder="Телефонен номер">
+                </div>
+                <div class="row-space-evenly">
+                    <label><input type="radio" name="user_type" id="recruiter" value="recruiter">Рекрутър</label>
+                    <label><input type="radio" name="user_type" id="graduate" value="graduate">Завършил студент</label>
+                </div>
             </section>
             <section id="graduate-info" class="additional">
-                <label for="fn">Факултетен номер: </label>
-                <input type="text" id="fn">
-                <select id="major">
-                    <option value="SI">Софтуерно инженерство</option>
-                    <option value="KN">Компютърни науки</option>
-                    <option value="IS">Информационни системи</option>
-                    <option value="I">Информатика</option>
-                    <option value="AD" >Анализ на данни</option>
-                    <option value="M">Математика</option>
-                    <option value="MI">Математика и информатика</option>
-                    <option value="PM">приложна математика</option>
-                </select>
-                <label for="class">Випуск: </label>
-                <input type="number" id="class" min="1900" max="3000">
-                <label for="location">Локация: </label>
-                <input type="text" id="location">
-                <select id="status">
-                    <option value="employed">Работещ</option>
-                    <option value="unemployed">Неработещ</option>
-                </select>
+                <div class="row-form">
+                    <label class="form-label" for="fn">Факултетен номер: </label>
+                    <input class="form-input" type="text" id="fn" placeholder="ФН">
+                </div>
+                <div class="row-form">
+                    <label class="form-label">Специалност: </label>
+                    <select id="major" class="form-select">
+                        <option value="SI">Софтуерно инженерство</option>
+                        <option value="KN">Компютърни науки</option>
+                        <option value="IS">Информационни системи</option>
+                        <option value="I">Информатика</option>
+                        <option value="AD" >Анализ на данни</option>
+                        <option value="M">Математика</option>
+                        <option value="MI">Математика и информатика</option>
+                        <option value="PM">приложна математика</option>
+                    </select>
+                </div>
+                <div class="row-form">
+                    <label class="form-label" for="class">Випуск: </label>
+                    <input class="form-input" type="number" id="class" min="1900" max="3000" placeholder="Випуск">
+                </div>
+                <div class="row-form">
+                    <label class="form-label" for="location">Локация: </label>
+                    <input class="form-input" type="text" id="location" placeholder="Локация">
+                </div>
+                <div class="row-form">
+                    <label class="form-label" for="status">Статус: </label>
+                    <select id="status" class="form-select">
+                        <option value="employed">Работещ</option>
+                        <option value="unemployed">Неработещ</option>
+                    </select>
+                </div>
             </section>
             <section id="recruiter-info" class="additional">
-                <label for="company">Име на компания: </label>
-                <input type="text" id="company">
+                <div class="row-form">
+                    <label class="form-label" for="company">Име на компания: </label>
+                    <input class="form-input" type="text" id="company" placeholder="Име на компания">
+                </div>
             </section>
-            <button>Регистрация</button>
-            <h2 id="reg-not-success" class="reg-not-success"></h2>
-            <h2 id="reg-success" class="reg-success"></h2>
+            <div class="button-wrap">
+                <button class="form-btn">Регистрация</button>
+            </div>
+            <p id="reg-not-success" class="reg-not-success"></p>
         </form>
 
         <img src="../../files/images/grad_reg.png" class="grad-img"/>
+    </div>
     </main>
     <footer>
 

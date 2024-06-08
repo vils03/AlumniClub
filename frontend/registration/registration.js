@@ -30,6 +30,7 @@ graduate.addEventListener('click', (event) => showAdditionalSection(event, 'grad
 // Get info from HTML form 
 const registrationForm = document.getElementById('register-form');
 registrationForm.addEventListener('submit', (event) => {
+    event.preventDefault();
 
     const inputs = registrationForm.querySelectorAll('input, select');
 
@@ -46,10 +47,7 @@ registrationForm.addEventListener('submit', (event) => {
     .then(response=>response.json())
     .then(response=>{
         if(response.success){
-            var messageBox = document.getElementById("reg-success");
-            messageBox.style.display = 'block';
-            messageBox.innerText = "bravo";
-            window.location.replace("../login/login.html");
+            window.location.replace("../main_page/main.html");
         }
         else{
             var messageBox = document.getElementById("reg-not-success");
@@ -57,18 +55,5 @@ registrationForm.addEventListener('submit', (event) => {
             messageBox.innerText = response.message;
         }
     })
-    // const response = {'success': false, 'message': 'poleto e zad'};
-    // if(response.success){
-    //     var messageBox = document.getElementById("reg-success");
-    //     messageBox.style.display = 'block';
-    //     // ...
-    // }
-    // else{
-    //     var messageBox = document.getElementById("reg-not-success");
-    //     messageBox.style.display = 'block';
-    //     messageBox.innerText = response.message;
-    // }
-    // console.log(response);
 
-    event.preventDefault();
 });
