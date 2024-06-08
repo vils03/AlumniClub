@@ -20,8 +20,22 @@ require_once('../db/db.php');
 
         $stmt = $conn->prepare($sql);
         $stmt->execute([$userId]);
+        $grInfo = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $eventSql = "SELECT eventinfo.EventName, eventinfo.EventDesc, eventinfo.CreatedEventDateTime 
+        FROM eventinfo 
+        JOIN usertoevent ON eventinfo.EventId=usertoevent.EventId 
+        JOIN graduate ON graduate.GraduateId=usertoevent.UserId 
+        JOIN major ON Major.MajorId=graduate.MajorId 
+        WHERE major.MajorName=:major OR graduate.Class=:class";
+
+        $eventStmt = $conn->prepare($eventSql);
+        $eventStmt->execute([
+            "major" => $grInfo[0]['MajorName'],
+            "class" => $grInfo[0]['Class'],
+        ]);
+
+        return $eventStmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     try{

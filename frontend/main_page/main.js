@@ -21,8 +21,14 @@ window.onload = function() {
         fetch('../../backend/api/get_events.php')
         .then(response => response.json())
         .then(data => {
-            const eventElement = document.getElementById('event-name');
-            console.log(data);
+            const eventNameElement = document.getElementById('event-name');
+            eventNameElement.innerText = data.value[0]['EventName'];
+
+            const eventDateElement = document.getElementById('event-date');
+            eventDateElement.innerText = data.value[0]['CreatedEventDateTime'];
+
+            const eventDescElement = document.getElementById('event-desc');
+            eventDescElement.innerText = data.value[0]['EventDesc'];
         })
         .catch(error => {
             console.error('Error fetching events data:', error);
