@@ -1,0 +1,117 @@
+@import url('../../frontend/main_page/template-main.css');
+
+.logo-img {
+    height: 25vh;
+    width: 15vw;
+}
+
+.leftcolumn {
+    display: flex;
+    padding: 5px;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.change-photo {
+    background-color: white;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+}
+
+.user-card {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.change-photo label {
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+.change-photo input[type='file'] {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    align-self: flex-end;
+}
+
+
+.rightcolumn {
+    padding: 20px;
+    margin-top: 20px;
+    background-color: white;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.rightcolumn h3 {
+    text-align: center;
+}
+
+.user-info-settings {
+    border-radius: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.change-info-form {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.main-info {
+    width: 40%;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+}
+
+.additional {
+    width: 40%;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 5px;
+    color: #23013a;
+    font-size: 20px;
+}
+
+.form-input {
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-item-button {
+
+    display: flex;
+    justify-content: space-evenly;
+    
+}
+
+.form-item-button button{
+    background-color:#4b0082;
+    color: white;
+    font-size: 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    align-self: center;
+    padding: 10px;
+}
+
+.form-item-button button:hover {
+    background-color: #965bc0;
+}

@@ -1,0 +1,26 @@
+@import url('../../frontend/main_page/template-main.css');
+
+.logo-img {
+    height: 25vh;
+    width: 15vw;
+}
+
+.job-img {
+    background-color: #b1b0b0;
+    padding: 20px;
+    width: 100%;
+}
+.job-card {
+    background-color: white;
+    padding: 20px;
+    margin-top: 20px;
+    border-bottom-style: groove;
+}
+
+.leftcolumn {
+    width: 18%;
+}
+
+.rightcolumn {
+    width: 78%;
+}
