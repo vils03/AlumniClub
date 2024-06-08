@@ -1,4 +1,5 @@
 <?php
+require_once('../db/db.php');
 session_start();
 
 function fetchUserId (PDO $conn, $email) {
@@ -16,27 +17,35 @@ function getUserInfo($conn, $userId){
     $stmt->execute([$userId]);
 
     $userInfo = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    $userType = $userInfo["UserType"];
+    $userType = $userInfo[0]["UserType"];
     $allInfo = $userInfo;
+    $recInfo = [];
 
-    if(strcmp($userType, 'graduate')){
+    if(strcmp($userType, 'graduate') == 0){
         $graduateSql = "SELECT graduate.Class, major.MajorName
         FROM `graduate` JOIN `major` ON graduate.MajorId=major.MajorId
         WHERE graduate.graduateId=?";
         $stmt = $conn->prepare($graduateSql);
         $stmt->execute([$userId]);
-        $allInfo |= $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $grInfo = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $userInfo[0] += $grInfo[0];
+        //$allInfo = array_merge($allInfo, $stmt->fetchAll(PDO::FETCH_ASSOC));
+        //$allInfo += $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-    else if(strcmp($userType, 'recruiter')){
+    else if(strcmp($userType, 'recruiter') == 0){
         $recruiterSql = "SELECT CompanyName
         FROM `recruiter`
         WHERE recruiter.recruiterId=?";
         $stmt = $conn->prepare($recruiterSql);
         $stmt->execute([$userId]);
-        $allInfo |= $stmt->fetch(PDO::FETCH_ASSOC)["CompanyName"];
+        $recInfo = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $userInfo[0]['CompanyName'] = $recInfo[0]['CompanyName'];
+        //$allInfo = array_merge($allInfo, $stmt->fetchAll(PDO::FETCH_ASSOC)[0]);
     }
-    return $allInfo;
+    return $userInfo;
 }
+
+
 try{
     $db = new DB();
     $conn=$db->getConnection();

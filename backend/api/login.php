@@ -31,7 +31,7 @@ else {
 
             echo json_encode([
                 'success' => true,
-                'email' => $email,
+                'email' => $_SESSION['email'],
             ]);
             
         } catch (Exception $e) {
