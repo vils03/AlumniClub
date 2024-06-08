@@ -1,82 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;700&display=swap');
+@import url('template-main.css');
 
-* {
-    box-sizing: border-box;
-}
-
-.container {
-    display:flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-}
-
-
-body {
-    font-family: 'Comfortaa', sans-serif;
-    font-style: normal;
-    font-size: 16px;
-    padding: 10px;
-    background-color: #f1f1f1;
-}
-
-
-/* style for header */
-
-header {
-    padding: 30px;
-    text-align: center;
-    background-color: #f1f1f1;
-}
-
-header h1 {
-    font-size: 4rem;
-    padding-right: 20px;
-    background-color: #f1f1f1;
-}
-
-.logo-img {
-    padding: 20px;
-    width: 25%;
-    /* margin-right: 20px; */
-}
-
-.logo-img img {
-    height: 100px; /* Adjust height as needed */
-}
-
-/* style for navbar */
-nav {
-    overflow: hidden;
-    background-color:#4b0082;
-    justify-content: space-evenly; /* Center items horizontally */
-    align-items: center;    /* Center items vertically */
-}
-
-nav a {
-    display: block;
-    color:#f2f2f2;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-}
-
-nav a:hover {
-    background-color: #e6e6fa;
-    color: black;
-}
-
-
-.leftcolumn {
-    width: 23%;
-    padding: 5px;
-    margin-right: 2px;
-    background-color: #f1f1f1;
-}
-.rightcolumn {
-    width: 73%;
-    padding: 5px;
-    background-color: #f1f1f1;
-}
 
 .event-img {
     background-color: #b1b0b0;
@@ -89,17 +13,6 @@ nav a:hover {
     margin-top: 20px;
 }
 
-.user-img img {
-    /*background-color: #b1b0b0; */
-    display: flex;
-    height: 100px; 
-}
-.user-card {
-    background-color: white;
-    padding: 20px;
-    margin-top: 20px;
-    border-bottom-style: groove;
-}
 
 .accepted-events {
     background-color: white;
@@ -109,38 +22,4 @@ nav a:hover {
 .accepted-event-container {
     background-color: white;
     padding: 20px;
-}
-
-/* Clear floats after the columns
-.row::after {
-    content: "";
-    display: table;
-    clear: both;
-} */
-
-/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other
-@media screen and (max-width: 800px) {
-    .leftcolumn, .rightcolumn {   
-      width: 100%;
-      padding: 0;
-    }
-}
-  
-/* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
-/* @media screen and (max-width: 400px) {
-    .topnav a {
-      float: none;
-      width: 100%;
-    }
-} */ 
-
-/* style for footer */
-footer {
-    padding: 20px;
-    background-color: #dcd0ff;
-    margin-top: 20px;
-}
-
-footer h2 {
-    text-align: center;
 }
