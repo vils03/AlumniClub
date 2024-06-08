@@ -1,4 +1,5 @@
 <?php
+require_once('../db/db.php');
     session_start();
 
     function fetchUserId (PDO $conn, $email) {
@@ -8,11 +9,11 @@
 
         return $stmt->fetch(PDO::FETCH_ASSOC)["UserId"];
     }
-    function getEvents($conn, $userId){
+    function getEvents($conn, $userId){ // nneeds one more query
         $sql = "SELECT graduate.Class, major.MajorName 
         FROM `eventinfo` 
-        JOIN `uecreated` ON eventinfo.EventId=uecreated.EventId 
-        JOIN `users` ON uecreated.UserId=users.UserId 
+        JOIN `usertoevent` ON eventinfo.EventId=usertoevent.EventId 
+        JOIN `users` ON usertoevent.UserId=users.UserId 
         JOIN `graduate` ON users.UserId=graduate.GraduateId 
         JOIN `major` ON graduate.MajorId=major.MajorId 
         WHERE users.UserId=graduate.GraduateId AND users.userId=?";
