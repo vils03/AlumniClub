@@ -27,21 +27,17 @@ require_once "../models/Event.php";
         $name = $phpInput['name'];
         $description = $phpInput['description'];
         $date = $phpInput['date'];
-        $image = $phpInput['image'];
 
-        $event = new Event(null, $name, $description, $date, $image);
+        $event = new Event(null, $name, $description, $date, null);
 
         try {
 
             $event->validateEvent();
-            $_SESSION['email'] = $phpInput['email'];
-
             $event->saveInDB($_SESSION['email']);
 
-            
             echo json_encode([
                 'success' => true,
-                'email' => $email,
+                'email' => $_SESSION['email'],
             ]);
             
         } catch (Exception $e) {
