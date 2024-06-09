@@ -110,8 +110,7 @@ class Event{
             exit();
         }
 
-        
-        if(!$result){
+        if(!$resultEvent){
             throw new Exception("Грешка при запис в базата данни: " . $statement->errorInfo()[2]);
         }
     }

@@ -16,12 +16,12 @@
         </div>
     </header>
     <nav class="navbar container">
-        <a href="#">Начало</a>
-        <a href="#">Добави събитие</a>
-        <a href="#">Обяви</a>
-        <a href="#">Преглед на профил</a>
+        <a href="../main_page/main.html">Начало</a>
+        <a href="event_form.html">Добави събитие</a>
+        <a href="../ads/ads.html">Обяви</a>
+        <a href="../view_profile/view_profile.html">Преглед на профил</a>
         <a href="#">Съобщения</a>
-        <a href="#">Изход</a>
+        <a href="../welcome_page/welcome.html">Изход</a>
     </nav>
     <div class="container">
         <aside class="leftcolumn">
@@ -29,9 +29,9 @@
                 <section class="user-img">
                     <img src="../../files/images/default_pic.jpg" alt="User Default">
                 </section>
-                <h2>Name</h2>
+                <h2 id="name">Name</h2>
                 <section class="user-bio">
-                    <p>Some text about user in culpa qui officia deserunt mollit anim..</p>
+                    <p id="user-info">Some text about user in culpa qui officia deserunt mollit anim..</p>
                 </section>
             </section>
         </aside>
@@ -73,12 +73,20 @@
                     <div class="form-item-button">
                         <button>Добави събитие</button>
                     </div>
-                    <!-- <h2 id="reg-not-success" class="reg-not-success"></h2>
-                    <h2 id="reg-success" class="reg-success"></h2> --> 
+                    <p id="reg-not-success" class="reg-not-success"></p>
                 </form>
             </section>
+
+            <div id="popup-container" class="popup-container">
+                <div class="popup-box">
+                    <h2 id="popup-header">Modal Header</h2>
+                    <p id="popup-text">This is a simple modal pop-up box.</p>
+                    <button id="popup-close">ОК</button>
+                </div>
+            </div>
         </main>
     </div>
+    
     <footer class="container">
         <h2> All rights reserved. Alumni Club @FMI since 2024.</h2>
     </footer>
