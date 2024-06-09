@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="ads.js" defer></script>
-    <link rel="stylesheet" href="style.css">
+    <script src="add_ad.js" defer></script>
+    <link rel="stylesheet" href="style_2.css">
     <title>Ads</title>
 </head>
 <body>
@@ -30,20 +30,33 @@
                 <h2 id="name">Name</h2>
                 <p id="user-info">Some text about user in culpa qui officia deserunt mollit anim..</p>
             </div>
-            <div class="btn-add-ad">
-                <button>Добави обява</button>
-            </div>
         </aside>
         <main class="rightcolumn">
-            <section class="job-card">
-                <div class="job-info">
-                    <h2 id="job-name">Job title</h2>
-                    <h5 id="job-date">Date created</h5>
-                    <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur 
-                        adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                        Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
-                </div>
+            <section class="add-ad-card">
+                <h2> Добави обява: </h2>
+                <form id="add-ad-form">
+                    <div class="row-form">
+                        <label for="name">Име на обявата: </label>
+                        <input id="name" type="text">
+                    </div>
+                    <div class="row-form">
+                        <label for="description">Описание на обявата: </label>
+                        <textarea id="description" name="description"></textarea>
+                    </div>
+                    <div class="form-item-button">
+                        <button>Добави обява</button>
+                    </div>
+                    <p id="add-not-success" class="add-not-success"></p>
+                </form>
             </section>
+
+            <div id="popup-container" class="popup-container">
+                <div class="popup-box">
+                    <h2 id="popup-header">Modal Header</h2>
+                    <p id="popup-text">This is a simple modal pop-up box.</p>
+                    <button id="popup-close">ОК</button>
+                </div>
+            </div>
         </main>
     </div>
     <footer class="container">
