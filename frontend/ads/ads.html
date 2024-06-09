@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="ads.js" defer></script>
     <link rel="stylesheet" href="style.css">
-    <title>Main page</title>
+    <title>Ads</title>
 </head>
 <body>
     <header class="container">
@@ -24,26 +25,27 @@
     </nav>
     <div class="container">
         <aside class="leftcolumn">
-            <section class="user-card">
-                <section class="user-img">
-                    <img src="../../files/images/default_pic.jpg" alt="User Default">
-                </section>
-                <h2>Name</h2>
-                <section class="user-bio">
-                    <p>Some text about user in culpa qui officia deserunt mollit anim..</p>
-                </section>
-            </section>
+            <div class="user-card">
+                <img src="../../files/images/default_pic.jpg" alt="User Default">
+                <h2 id="name">Name</h2>
+                <p id="user-info">Some text about user in culpa qui officia deserunt mollit anim..</p>
+            </div>
+            <div class="btn-add-ad">
+                <button>Добави обява</button>
+            </div>
         </aside>
         <main class="rightcolumn">
             <section class="job-card">
-                <h2>Job add title</h2>
-                <h5>Date created</h5>
-                <section class="job-img">Image</section>
-                <section class="job-desc">
+                <div class="job-info">
+                    <h2 id="job-name">Job title</h2>
+                    <h5 id="job-date">Date created</h5>
                     <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur 
                         adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
                         Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
-                </section>
+                </div>
+                <div class="job-img">
+                    <img src="../../files/images/default_pic.jpg" alt="Event Default">
+                </div>
             </section>
         </main>
     </div>

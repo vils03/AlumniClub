@@ -2,24 +2,45 @@
 @import url('template-main.css');
 
 
-.event-img {
-    background-color: #b1b0b0;
-    padding: 20px;
-    width: 100%;
-}
 .event-card {
     background-color: white;
     padding: 20px;
     margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
 }
 
+.event-info {
+    padding-left: 20px;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 50%;
+}
+
+.event-img {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 50%;
+}
+
+.event-img img {
+    width: 70%;
+}
 
 .accepted-events {
     background-color: white;
     padding: 20px;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-evenly;
+    align-items: center;
 }
 
-.accepted-event-container {
-    background-color: white;
-    padding: 20px;
+.accepted-event {
+    border-bottom: 2px groove #4b0082;
 }
