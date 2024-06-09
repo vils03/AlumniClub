@@ -27,8 +27,9 @@ require_once "../models/Event.php";
         $name = $phpInput['name'];
         $description = $phpInput['description'];
         $date = $phpInput['date'];
+        $image = basename($phpInput['image']);
 
-        $event = new Event(null, $name, $description, $date, null);
+        $event = new Event(null, $name, $description, $date, $image);
 
         try {
 

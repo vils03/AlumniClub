@@ -103,9 +103,7 @@ document.addEventListener('DOMContentLoaded', function(){
         }
 
         const eventData = await fetchEventsData();
-        console.log(eventData);
         for(var event of eventData.value){
-            console.log(event);
             const section = document.createElement('section');
             section.classList.add('event-card');
             /* title, date and description -> left side */
@@ -124,13 +122,15 @@ document.addEventListener('DOMContentLoaded', function(){
             const desc=document.createElement('p');
             desc.innerText = event['EventDesc'];
             divInfo.appendChild(desc);
+
             /* image -> right side */
             const divImg = document.createElement('div');
             divImg.classList.add('event-img');
             section.appendChild(divImg);
 
             const image = document.createElement('img');
-            image.setAttribute('src', '../../files/images/default_pic.jpg');
+            console.log(event['EventImage']);
+            image.setAttribute('src', `../../files/uploaded/${event['EventImage']}`);
             image.setAttribute('alt', 'Event Default');
             divImg.appendChild(image);
 

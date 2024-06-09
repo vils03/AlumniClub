@@ -19,6 +19,21 @@ window.onload = function() {
         });
 }
 
+function uploadImage(){
+    const fileInput = document.getElementById('image');
+    const file = fileInput.files[0];
+    const formData = new FormData();
+    formData.append('photo', file);
+    fetch("../../backend/api/upload_image.php", {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.text())
+    .catch(error =>{
+        console.error('Error uploading photo: ', error); //???
+    });
+}
+
 
 const eventForm = document.getElementById('add-event-form');
 eventForm.addEventListener('submit', (event) => {
@@ -29,6 +44,7 @@ eventForm.addEventListener('submit', (event) => {
     inputs.forEach(input => {
         eventData[input.id] = input.value;
     });
+    console.log(eventData);
 
     fetch('../../backend/api/add_event.php', {
         method: 'POST',
@@ -37,6 +53,7 @@ eventForm.addEventListener('submit', (event) => {
     .then(response=>response.json())
     .then(response=>{
         if(response.success){
+            uploadImage();
             const modal = document.getElementById('popup-container');
             const closeBtn = document.getElementById('popup-close');
 

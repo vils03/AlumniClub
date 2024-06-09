@@ -22,7 +22,7 @@ require_once('../db/db.php');
         $stmt->execute([$userId]);
         $grInfo = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        $eventSql = "SELECT eventinfo.EventName, eventinfo.EventDesc, eventinfo.CreatedEventDateTime 
+        $eventSql = "SELECT eventinfo.EventName, eventinfo.EventDesc, eventinfo.CreatedEventDateTime, eventinfo.EventImage
         FROM eventinfo 
         JOIN usertoevent ON eventinfo.EventId=usertoevent.EventId 
         JOIN graduate ON graduate.GraduateId=usertoevent.UserId 
