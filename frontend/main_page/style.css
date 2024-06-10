@@ -28,9 +28,9 @@
     width: 50%;
 }
 
-/* .event-img img {
-    width: 70%;
-} */
+.event-img img {
+    width: 50%;
+} 
 
 .accepted-events {
     background-color: white;
@@ -43,4 +43,8 @@
 
 .accepted-event {
     border-bottom: 2px groove #4b0082;
+}
+
+.rightcolumn {
+    width: 100%;
 }

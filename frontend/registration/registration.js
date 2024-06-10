@@ -57,3 +57,20 @@ registrationForm.addEventListener('submit', (event) => {
     })
 
 });
+
+
+// CSV case handling
+
+const importForm = document.getElementById('import-form');
+importForm.addEventListener('submit', (event) => {
+    const file = document.getElementById('import').files[0];
+    const formData = new FormData();
+    formData.append('csv', file);
+
+    fetch('../backend/api/import_users.php', {
+        method: 'POST',
+        body: formData 
+    });
+
+    event.preventDefault();
+});

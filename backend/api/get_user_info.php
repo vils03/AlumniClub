@@ -18,7 +18,6 @@ function getUserInfo($conn, $userId){
 
     $userInfo = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $userType = $userInfo[0]["UserType"];
-    $allInfo = $userInfo;
     $recInfo = [];
 
     if(strcmp($userType, 'graduate') == 0){
@@ -29,8 +28,6 @@ function getUserInfo($conn, $userId){
         $stmt->execute([$userId]);
         $grInfo = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $userInfo[0] += $grInfo[0];
-        //$allInfo = array_merge($allInfo, $stmt->fetchAll(PDO::FETCH_ASSOC));
-        //$allInfo += $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     else if(strcmp($userType, 'recruiter') == 0){
         $recruiterSql = "SELECT CompanyName
@@ -40,7 +37,6 @@ function getUserInfo($conn, $userId){
         $stmt->execute([$userId]);
         $recInfo = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $userInfo[0]['CompanyName'] = $recInfo[0]['CompanyName'];
-        //$allInfo = array_merge($allInfo, $stmt->fetchAll(PDO::FETCH_ASSOC)[0]);
     }
     return $userInfo;
 }

@@ -17,38 +17,6 @@ window.onload = function() {
         .catch(error => {
             console.error('Error fetching data:', error);
         });
-
-        // fetch('../../backend/api/get_events.php')
-        // .then(response => response.json())
-        // .then(data => {
-        //     const eventNameElement = document.getElementById('event-name');
-        //     eventNameElement.innerText = data.value[0]['EventName'];
-
-        //     const eventDateElement = document.getElementById('event-date');
-        //     eventDateElement.innerText = data.value[0]['CreatedEventDateTime'];
-
-        //     const eventDescElement = document.getElementById('event-desc');
-        //     eventDescElement.innerText = data.value[0]['EventDesc'];
-        // })
-        // .catch(error => {
-        //     console.error('Error fetching events data:', error);
-        // });
-
-        // fetch('../../backend/api/get_accepted_events.php')
-        // .then(response => response.json())
-        // .then(data => {
-        //     const eventNameElement = document.getElementById('accepted-name');
-        //     eventNameElement.innerText = data.value[0]['eventName'];
-
-        //     const eventDateElement = document.getElementById('accepted-date');
-        //     eventDateElement.innerText = data.value[0]['CreatedEventDateTime'];
-        // })
-        // .catch(error => {
-        //     console.error('Error fetching events data:', error);
-        // });
-
-        
-        
 };
 
 document.addEventListener('DOMContentLoaded', function(){

@@ -38,7 +38,7 @@ function changeBtnVisibility () {
     const userType = getUserType();
 
     if ( userType === "recruiter") {
-        addAdBtn.style.display = 'flex';
+        addAdBtn.style.display = 'block';
     }
     else {
         addAdBtn.style.display = 'none';

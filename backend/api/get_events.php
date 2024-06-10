@@ -3,13 +3,13 @@ require_once('../db/db.php');
     session_start();
 
     function fetchUserId (PDO $conn, $email) {
-        $sql = "SELECT UserId FROM Users WHERE emailaddress = ?";
+        $sql = "SELECT UserId, UserType FROM Users WHERE emailaddress = ?";
         $stmt = $conn->prepare($sql);
         $stmt->execute([$email]);
 
-        return $stmt->fetch(PDO::FETCH_ASSOC)["UserId"];
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-    function getEvents($conn, $userId){ // nneeds one more query
+    function getGraduateEvents($conn, $userId){
         $sql = "SELECT graduate.Class, major.MajorName 
         FROM `eventinfo` 
         JOIN `usertoevent` ON eventinfo.EventId=usertoevent.EventId 
@@ -24,7 +24,7 @@ require_once('../db/db.php');
 
         $eventSql = "SELECT eventinfo.EventName, eventinfo.EventDesc, eventinfo.CreatedEventDateTime, eventinfo.EventImage
         FROM eventinfo 
-        JOIN usertoevent ON eventinfo.EventId=usertoevent.EventId 
+        JOIN usertoevent ON eventinfo.EventId=usertoevent.EventId
         JOIN graduate ON graduate.GraduateId=usertoevent.UserId 
         JOIN major ON Major.MajorId=graduate.MajorId 
         WHERE major.MajorName=:major OR graduate.Class=:class";
@@ -34,7 +34,24 @@ require_once('../db/db.php');
             "major" => $grInfo[0]['MajorName'],
             "class" => $grInfo[0]['Class'],
         ]);
+        $events = $eventStmt->fetchAll(PDO::FETCH_ASSOC);
+        $recruiterEvents = "SELECT eventinfo.EventName, eventinfo.EventDesc, eventinfo.CreatedEventDateTime, eventinfo.EventImage 
+                            FROM eventinfo 
+                            JOIN usertoevent ON eventinfo.EventId=usertoevent.EventId 
+                            JOIN users ON users.UserId=usertoevent.UserId 
+                            WHERE users.UserType='recruiter'";
+        $recStmt = $conn->prepare($recruiterEvents);
+        $recStmt->execute();
+        $recEvents = $recStmt->fetchAll(PDO::FETCH_ASSOC);
+        return array_merge($events, $recEvents);
+    }
 
+    function getRecruiterEvents($conn, $userId){
+        $eventSql = "SELECT eventinfo.EventName, eventinfo.EventDesc, eventinfo.CreatedEventDateTime, eventinfo.EventImage
+        FROM eventinfo";
+
+        $eventStmt = $conn->prepare($eventSql);
+        $eventStmt->execute();
         return $eventStmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
@@ -50,8 +67,14 @@ require_once('../db/db.php');
         ]);
         exit();
     }
-    $userId = fetchUserId($conn, $_SESSION['email']);
-    $events = getEvents($conn, $userId);
+    $userId = fetchUserId($conn, $_SESSION['email'])[0]['UserId'];
+    $userType = fetchUserId($conn, $_SESSION['email'])[0]['UserType'];
+    if(strcmp($userType, 'graduate') == 0){
+        $events = getGraduateEvents($conn, $userId);
+    }
+    else{
+        $events = getRecruiterEvents($conn, $userId);
+    }
     echo json_encode([
         'success' => true,
         'message' => "Списък от събития:",
