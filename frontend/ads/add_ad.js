@@ -28,7 +28,7 @@ adForm.addEventListener('submit', (event) => {
     inputs.forEach(input => {
         adData[input.id] = input.value;
     });
-
+    console.log(adData);
     fetch('../../backend/api/add_ad.php', {
         method: 'POST',
         body: JSON.stringify(adData),

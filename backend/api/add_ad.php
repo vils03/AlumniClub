@@ -4,6 +4,7 @@ require_once "../models/Ad.php";
     session_start();
     $phpInput = json_decode(file_get_contents('php://input'), true);
 
+
     if (empty($phpInput['name'])){ 
         echo json_encode([
             'success' => false,
@@ -17,7 +18,6 @@ require_once "../models/Ad.php";
         ]);
     }
     else {
-
         $name = $phpInput['name'];
         $description = $phpInput['description'];
 
@@ -26,14 +26,13 @@ require_once "../models/Ad.php";
         try {
 
             $ad->validateAd();
-            $_SESSION['email'] = $phpInput['email'];
 
             $ad->saveInDB($_SESSION['email']);
 
             
             echo json_encode([
                 'success' => true,
-                'email' => $email,
+                'email' => $_SESSION['email'],
             ]);
             
         } catch (Exception $e) {

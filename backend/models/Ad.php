@@ -23,7 +23,7 @@
             require_once "../db/db.php";
             try{
                 $db = new DB();
-                $con = $db->getConnection();
+                $conn = $db->getConnection();
             }
             catch(PDOException $e){
                 echo json_encode([
@@ -31,7 +31,7 @@
                     'message' => 'Неуспешно свързване с базата от данни!'
                 ]);
             }
-            $statement = $con->prepare(
+            $statement = $conn->prepare(
                 "INSERT INTO `adinfo` (RecruiterId, AdName, AdDesc) 
                 VALUES (:recruiterId, :name, :description)"
             );
@@ -47,22 +47,22 @@
         }
 
         public function validateAd() : void{
-            if(empty($name)){
+            if(empty($this->name)){
                 throw new Exception("Полето име е задължително!");
             }
-            if(empty($description)){
+            if(empty($this->description)){
                 throw new Exception("Полето описание е задължително!");
             }
-            if(strlen($name) < 5){
+            if(strlen($this->name) < 5){
                 throw new Exception("Името трябва да е поне 5 символа!");
             }
-            if(strlen($name) > 50){
+            if(strlen($this->name) > 50){
                 throw new Exception("Името трябва да е не повече от 50 символа!");
             }
-            if(strlen($description) < 10){
+            if(strlen($this->description) < 10){
                 throw new Exception("Описанието трябва да е поне 10 символа!");
             }
-            if(strlen($description) > 200){
+            if(strlen($this->description) > 200){
                 throw new Exception("Описанието трябва да е не повече от 200 символа!");
             }
         }
