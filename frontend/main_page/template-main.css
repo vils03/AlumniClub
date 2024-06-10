@@ -76,21 +76,26 @@ nav a:hover {
 
 
 .leftcolumn {
-    width: 23%;
+    /* max-width: 23%; */
     padding: 5px;
     margin-right: 2px;
     display: flex;
     flex-flow: column wrap;
     background-color: #f1f1f1;
-    justify-content: space-evenly;
+    justify-content: flex-start;
 }
 .rightcolumn {
-    width: 73%;
+    /* max-width: 73%; */
     padding: 5px;
     background-color: #f1f1f1;
     display: flex;
     flex-flow: column wrap;
+    flex-grow: 4;
     justify-content: flex-start;
+}
+
+.feed-container {
+    display: flex;
 }
 
 .user-card {
