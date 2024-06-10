@@ -22,12 +22,19 @@ if (isset($_FILES['csv']['name'])) {
             $graduate = new Graduate(null, $row[1], $row[2], $row[3], $password, $row[4], $row[0], 'default_pic.jpg', $row[5], $row[6], 
             $row[7], $row[8], $row[9]);
             $graduate->storeInDB();
+            
         }
         else{
             echo json_encode([
                 'success' => false,
                 'message' => "Нeвалиден тип потребител!",
             ]);
+            exit();
         }
     }
+    
+    echo json_encode([
+        'success' => true,
+        'message' => "Успешно записани потребители!",
+    ]);
 }
