@@ -4,7 +4,8 @@ window.onload = function() {
         .then(data => {
             const nameElement = document.getElementById('name');
             nameElement.innerText = data.value[0]['FirstName'];
-
+            const imgElem = document.getElementById('profile-pic');
+            imgElem.setAttribute('src', `../../files/uploaded/${data.value[0]['UserImage']}`);
             const userInfoElement = document.getElementById('user-info');
             const userType = data.value[0]['UserType'];
             if(userType.localeCompare('recruiter') == 0){
@@ -44,7 +45,6 @@ eventForm.addEventListener('submit', (event) => {
     inputs.forEach(input => {
         eventData[input.id] = input.value;
     });
-    console.log(eventData);
 
     fetch('../../backend/api/add_event.php', {
         method: 'POST',

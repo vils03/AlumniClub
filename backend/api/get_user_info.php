@@ -11,7 +11,7 @@ function fetchUserId (PDO $conn, $email) {
 }
 
 function getUserInfo($conn, $userId){
-    $sql = "SELECT users.FirstName, users.LastName, users.UserType, users.PhoneNumber, users.EmailAddress
+    $sql = "SELECT users.FirstName, users.LastName, users.UserType, users.PhoneNumber, users.EmailAddress, users.UserImage
             FROM Users WHERE userId=?";
     $stmt = $conn->prepare($sql);
     $stmt->execute([$userId]);

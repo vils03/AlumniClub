@@ -4,7 +4,8 @@ window.onload = function() {
         .then(data => {
             const nameElement = document.getElementById('name');
             nameElement.innerText = data.value[0]['FirstName'];
-
+            const imgElem = document.getElementById('profile-pic');
+            imgElem.setAttribute('src', `../../files/uploaded/${data.value[0]['UserImage']}`);
             const userInfoElement = document.getElementById('user-info');
             const userType = data.value[0]['UserType'];
             if(userType.localeCompare('recruiter') == 0){
@@ -22,31 +23,27 @@ window.onload = function() {
 const addAdBtn = document.getElementById('btn-add-ad');
 
 function getUserType () {
-    fetch("../../backend/endpoints/get_user_type.php")
+    fetch("../../backend/api/get_user_type.php")
+    .then(response => response.json())
     .then(response => {
-      if (!response.ok) {
+      if (!response.success) {
         throw new Error('Error get user type.');
       }
-      return response.json();
+      changeBtnVisibility(response.value);
     })
-    .catch(error => {
-      console.error('Грешка при търсенето типа на потребителя.');
-    });
 }
 
-function changeBtnVisibility () {
-    const userType = getUserType();
-
+function changeBtnVisibility (userType) {
     if ( userType === "recruiter") {
         addAdBtn.style.display = 'block';
+        addAdBtn.addEventListener('click', () => {
+            location.href = 'add_ad.html';
+        });
     }
     else {
         addAdBtn.style.display = 'none';
     }
 }
 
-changeBtnVisibility();
+getUserType();
 
-addAdBtn.addEventListener('click', () => {
-    location.href = 'ad_add.html';
-});

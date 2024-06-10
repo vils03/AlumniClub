@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <script src="view_profile.js" defer></script>
     <title>View profile</title>
 </head>
 <body>
@@ -27,7 +28,11 @@
                 <div class="user-card">
                     <img src="../../files/images/default_pic.jpg" alt="User Default">
                     <label for="image">Промени своята снимка </label>
-                    <input type="file" id="image" accept="image/*">
+                    <form id="change-img">
+                        <input type="file" id="image" accept="image/*">
+                        <button>Промени</button>
+                    </form>
+
                 </div>
         </aside>
         <main class="rightcolumn">
