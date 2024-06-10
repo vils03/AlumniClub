@@ -14,7 +14,6 @@ body{
 h1{
     margin-left: 10%;
     color: #4b0082;
-
 }
 
 main{
@@ -26,17 +25,7 @@ main{
     justify-content: space-between;
 }
 
-.additional{
-    display:none;
-}
-
-.reg-not-success{
-    display: none;
-    color: red;
-}
-
 .grad-img{
-    /* height: 60%; */
     align-self: flex-end;
     width: 30vw;
     position: absolute;
@@ -52,20 +41,14 @@ main{
     opacity: 40%;
 }
 
-
 /* form styling */
 .reg-form{
     padding: 20px;
-    /* margin-top: 20px; */
     display: flex;
-    justify-content: space-between;
     flex-direction: column;
     height: 80vh;
-    margin-left: 5%;
     width: 40%;
 }
-
-
 
 .form-label{
     display: block;
@@ -79,67 +62,59 @@ main{
     margin-top: 6px;
     font-size: 20px;
 }
-.form-btn {
-    background-color: #4b0082;
-    border-radius: 100px;
-    box-shadow: 5px 5px 5px #b557f866;
-    color: white;
-    /* color: #d9b3ff; */
-    cursor: pointer;
-    padding: 7px 20px;
-    /* margin: 5px; */
-    margin-bottom: 5px;
-    text-align: center;
-    transition: all 250ms;
-    border: 0;
-    font-size: 1.5vw;
-    font-weight: bolder;
-    touch-action: manipulation;
-  
-  }
 
 .main-flex{
     display: flex;
     justify-content: space-between;
+    align-items: flex-start;
     width: 100%;
 }
 
 .main-info{
     display: flex;
     justify-content: space-evenly;
-    flex-direction: row;
+    flex-direction: column;
 }
-  .button-wrap{ 
+
+.button-wrap{
     width: 100%;
     display: flex;
     justify-content: center;
-  }
+}
 
-  .row-form{
-    display:flex;
+.row-form{
+    display: flex;
     justify-content: space-between;
-    /* height: 10%; */
     align-items: baseline;
-  }
+}
 
-  .row-space-evenly {
+.row-space-evenly{
     display: flex;
     justify-content: space-evenly;
     margin-top: 15px;
-  }
+}
 
-  .form-select{
-    margin-top: 6px;
-    width: 51.5%;
-    font-size: 1rem;
-    padding: 2px;
-
-  }
-
-  .row-form input {
+.row-form input{
     width: 50%;
-  }
+}
 
-  .form-input::-webkit-input-placeholder{
-    font-size: 15px;
-  }
+/* New styles for buttons next to the form or h3 */
+.export-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    width: 40%;
+    height: 80vh;
+    padding: 20px;
+}
+
+.export-section h3 {
+    margin-bottom: 20px;
+}
+
+.export-section button {
+    margin-top: 10px;
+    align-self: flex-start;
+}
+

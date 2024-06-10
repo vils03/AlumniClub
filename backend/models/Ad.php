@@ -32,8 +32,8 @@
                 ]);
             }
             $statement = $conn->prepare(
-                "INSERT INTO `adinfo` (RecruiterId, AdName, AdDesc) 
-                VALUES (:recruiterId, :name, :description)"
+                "INSERT INTO `adinfo` (RecruiterId, AdName, AdDesc, CreatedEventDateTime) 
+                VALUES (:recruiterId, :name, :description, NOW())"
             );
             $userId = $this->fetchUserId($conn, $email);
             $result = $statement->execute([

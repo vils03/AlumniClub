@@ -39,7 +39,7 @@ adForm.addEventListener('submit', (event) => {
             const modal = document.getElementById('popup-container');
             const closeBtn = document.getElementById('popup-close');
 
-            document.getElementById('popup-header').innerText = "Успешно добавено събитие :)";
+            document.getElementById('popup-header').innerText = "Успешно добавена обява :)";
             document.getElementById('popup-text').innerText = adData['name'];
             modal.style.display = 'flex';
             

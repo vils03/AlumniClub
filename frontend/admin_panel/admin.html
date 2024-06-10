@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin panel</title>
+    <link rel="stylesheet" href="admin.css">
+    <script src="admin.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Добре дошли в Алумни клуб!</h1>
+    </header>
+    <main>
+        <img src="../../files/images/cloud.png" class="bg-image" />
+        <div class="main-flex">
+            <form id="import-form" class="reg-form">
+                <div class="row-form">
+                    <label class="form-label" for="import">Импорт на потребители от CSV файл: </label>
+                    <input class="form-input" type="file" id="import">
+                </div>
+                <div class="button-wrap">
+                    <button class="form-btn">Импорт</button>
+                </div>
+            </form>
+            <div class="export-section">
+                <h3>Експорт на данни за потребители в CSV файл</h3>
+                <button class="form-btn">Експорт</button>
+            </div>
+        </div>
+        <img src="../../files/images/grad_reg.png" class="grad-img"/>
+    </main>
+</body>
+</html>

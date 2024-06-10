@@ -20,6 +20,54 @@ window.onload = function() {
         });
 }
 
+document.addEventListener('DOMContentLoaded', function(){
+    const adContainer = document.getElementById('rightcolumn');
+
+    const fetchAdInfo = async() => {
+        try {
+            const response = await fetch('../../backend/api/get_ad.php');
+            if(!response.ok){
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            return data;
+        }
+        catch (error){
+            // error
+            return [];
+        }
+    };
+
+    const displayFeed = async () => {
+        const data = await fetchAdInfo();
+        for(var item of data.value){
+            const section = document.createElement('section');
+            section.classList.add('job-card');
+
+            const div = document.createElement('div');
+            div.classList.add('job-info');
+            section.appendChild(div);
+
+            const title = document.createElement('h2');
+            title.innerText = item['adName'];
+            div.appendChild(title);
+
+            const date=document.createElement('h5');
+            date.innerText = item['createdEventDateTime'];
+            div.appendChild(date);
+
+            const desc=document.createElement('p');
+            desc.innerText = item['adDesc'];
+            div.appendChild(desc);
+
+            adContainer.appendChild(section);
+        }
+    };
+
+    displayFeed();
+});
+
+
 const addAdBtn = document.getElementById('btn-add-ad');
 
 function getUserType () {
