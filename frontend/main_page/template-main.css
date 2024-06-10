@@ -10,6 +10,7 @@
     justify-content: space-evenly;
 }
 
+
 body {
     font-family: 'Comfortaa', sans-serif;
     font-style: normal;
@@ -76,7 +77,7 @@ nav a:hover {
 
 
 .leftcolumn {
-    /* max-width: 23%; */
+    width: 23%;
     padding: 5px;
     margin-right: 2px;
     display: flex;
@@ -85,12 +86,11 @@ nav a:hover {
     justify-content: flex-start;
 }
 .rightcolumn {
-    /* max-width: 73%; */
+    width: 73%;
     padding: 5px;
     background-color: #f1f1f1;
     display: flex;
     flex-flow: column wrap;
-    flex-grow: 4;
     justify-content: flex-start;
 }
 
