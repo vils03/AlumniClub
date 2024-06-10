@@ -54,8 +54,10 @@ document.addEventListener('DOMContentLoaded', function(){
         }
     };
 
+
     const displayFeed = async () => {
         const data = await fetchAcceptedData();
+       
         for(var item of data.value){
             const div = document.createElement('div');
             div.classList.add('accepted-event');
@@ -72,10 +74,11 @@ document.addEventListener('DOMContentLoaded', function(){
         }
 
         const eventData = await fetchEventsData();
+        let k = 0;
         for(var event of eventData.value){
             const section = document.createElement('section');
             section.classList.add('event-card');
-            /* title, date and description -> left side */
+            /* title, date and description and button -> left side */
             const divInfo = document.createElement('div');
             divInfo.classList.add('event-info');
             section.appendChild(divInfo);
@@ -91,6 +94,38 @@ document.addEventListener('DOMContentLoaded', function(){
             const desc=document.createElement('p');
             desc.innerText = event['EventDesc'];
             divInfo.appendChild(desc);
+
+            const accept_btn=document.createElement('button');
+            accept_btn.innerText = "Ще отида";
+            accept_btn.id = 'accept-btn'+(k+1);
+            accept_btn.classList.add('accept-event-button');
+            divInfo.appendChild(accept_btn); 
+            //event listner for accepting event: 
+
+            console.log(event);
+
+            accept_btn.addEventListener('click', function() {
+                accept_btn.style.display = 'none';
+
+                const accepted_msg=document.createElement('h5');
+                //accepted_msg.innerText = 'Йей, ще присъствам!';
+                divInfo.appendChild(accepted_msg);
+
+                const addEventToUser = async() => {
+                    fetch('../../backend/api/add_event_accepted.php', {
+                        method: 'POST',
+                        body: JSON.stringify(event),
+                    })
+                    .then(response=>response.json())
+                    .then(response=>{
+                        if(response.success){
+                            accepted_msg.innerText = 'Йей, ще присъствам!';
+                        }
+                    })
+                };
+
+                addEventToUser();
+            });
 
             /* image -> right side */
             const divImg = document.createElement('div');
@@ -109,3 +144,17 @@ document.addEventListener('DOMContentLoaded', function(){
 
     displayFeed();
 });
+
+
+// const accept_event = document.getElementById('accept-btn');
+// accept_event.addEventListener('click', (event) => {
+//     event.preventDefault();
+//     accept_event.style.display = 'none';
+
+//     const accepted_msg=document.createElement('h5');
+//     accepted_msg.innerText = 'Йей, ще присъствам';
+//     accept_event.appendChild(accepted_msg);
+// });
+
+
+

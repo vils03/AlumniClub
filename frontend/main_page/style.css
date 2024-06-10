@@ -45,3 +45,13 @@
     border-bottom: 2px groove #4b0082;
 }
 
+.accept-event-button {
+    background-color:#4b0082;
+    color: white;
+    font-size: 15px;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    align-self: center;
+    padding: 10px;
+}

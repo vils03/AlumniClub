@@ -114,4 +114,49 @@ class Event{
             throw new Exception("Грешка при запис в базата данни: " . $statement->errorInfo()[2]);
         }
     }
+
+    public function saveInUserToEvents($email) : void {
+        require_once "../db/db.php";
+        try{
+            $db = new DB();
+            $conn = $db->getConnection();
+            $conn->beginTransaction();
+        }
+        catch(PDOException $e){
+            echo json_encode([
+                'success' => false,
+                'message' => 'Неуспешно свързване с базата от данни!'
+            ]);
+        }
+        try{
+
+            $statementCross = $conn->prepare(
+                "INSERT INTO `usertoevent` (UserId, EventId, Accepted, Created)
+                VALUES (:userid, :eventid, :accepted, :created)"
+            );
+            
+            $userId = $this->fetchUserId($conn, $email);
+            $eventId = $this->fetchEventId($conn, $this->name, $this->description);
+
+            $resultCross = $statementCross->execute([
+                'userid' => $userId,
+                'eventid' => $eventId,
+                'accepted' => 1,
+                'created' => 0
+            ]);
+            if ($resultCross) {
+                $conn->commit();
+            } else {
+                $conn->rollback();
+            }
+        }
+        catch(PDOException $e)
+        {
+            echo json_encode([
+                'success' => false,
+                'message' => $e->getMessage()
+            ]);
+            exit();
+        }
+    }
 }
