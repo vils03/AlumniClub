@@ -43,3 +43,46 @@ imgForm.addEventListener('submit', (event) => {
 
 
 // show info for user - API
+const partGrad = document.getElementById('additional-grad');
+const partRec = document.getElementById('additional-rec');
+
+
+function changeBtnVisibility (userType) {
+    if ( userType === "recruiter") {
+        partRec.style.display = 'block';
+        partGrad.style.display = 'none';
+    }
+    else {
+        partRec.style.display = 'none';
+        partGrad.style.display = 'block';
+    }
+}
+function getUserType () {
+    fetch("../../backend/api/get_user_type.php")
+    .then(response => response.json())
+    .then(response => {
+      if (!response.success) {
+        throw new Error('Error get user type.');
+      }
+      changeBtnVisibility(response.value);
+    })
+}
+
+getUserType();
+
+function changePlaceholders () {
+    fetch("../../backend/api/get_user_info.php")
+    .then(response => response.json())
+    .then(response => {
+      if (!response.success) {
+        throw new Error('Error get user type.');
+      }
+      const userData = response.value;
+      console.log(userData.FirstName);
+      const name = document.getElementById('name');
+      name.value = userData[0]['FirstName'];
+
+    })
+}
+
+changePlaceholders();
