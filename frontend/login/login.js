@@ -15,7 +15,12 @@ loginForm.addEventListener('submit', (event) => {
     .then(response=>response.json())
     .then(response=>{
         if(response.success){
-            window.location.replace("../main_page/main.html");
+            if(response.email === "admin@admin.com"){
+                window.location.replace("../admin_panel/admin.html");
+            }
+            else{
+                window.location.replace("../main_page/main.html");
+            }
         }
         else{
             var messageBox = document.getElementById("reg-not-success");

@@ -119,6 +119,9 @@ document.addEventListener('DOMContentLoaded', function(){
             accept_btn.id = 'accept-btn'+(k+1);
             accept_btn.onclick = function() {
                 joinEvent(ev, accept_btn.id, divInfo);
+                setTimeout(() => {
+                    window.location.replace("main.html");
+                }, 1000);
             }
             accept_btn.classList.add('accept-event-button');
             divInfo.appendChild(accept_btn); 
