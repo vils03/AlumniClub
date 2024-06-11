@@ -28,7 +28,9 @@ form.addEventListener('submit', (event) => {
     event.preventDefault();
 });
 
-document.getElementById('export-btn').addEventListener('click', function () {
+
+const exportForm = document.getElementById('export-section');
+exportForm.addEventListener('submit', (event) => {
     fetch('../../backend/api/export_users.php')
         .then(response => {
             if (response.ok) {
@@ -47,4 +49,6 @@ document.getElementById('export-btn').addEventListener('click', function () {
             window.URL.revokeObjectURL(url);
         })
         .catch(error => console.error('There was a problem with the fetch operation:', error));
+
+    event.preventDefault();
 });

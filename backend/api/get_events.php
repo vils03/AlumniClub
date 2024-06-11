@@ -24,34 +24,50 @@ require_once('../db/db.php');
 
         $eventSql = "SELECT eventinfo.EventName, eventinfo.EventDesc, eventinfo.CreatedEventDateTime, eventinfo.EventImage
         FROM eventinfo 
-        LEFT JOIN usertoevent ON eventinfo.EventId=usertoevent.EventId
+        JOIN usertoevent ON eventinfo.EventId=usertoevent.EventId
         JOIN graduate ON graduate.GraduateId=usertoevent.UserId 
         JOIN major ON Major.MajorId=graduate.MajorId 
-        WHERE (major.MajorName=:major OR graduate.Class=:class) AND eventinfo.EventId NOT IN (SELECT usertoevent.EventId FROM usertoevent)";
+        WHERE (major.MajorName=:major OR graduate.Class=:class) 
+        AND NOT EXISTS (
+                    SELECT 1
+                    FROM usertoevent
+                    WHERE usertoevent.eventid = eventinfo.eventid
+                    AND usertoevent.userid = :userid);";
 
         $eventStmt = $conn->prepare($eventSql);
         $eventStmt->execute([
             "major" => $grInfo[0]['MajorName'],
             "class" => $grInfo[0]['Class'],
+            "userid" => $userId,
         ]);
         $events = $eventStmt->fetchAll(PDO::FETCH_ASSOC);
         $recruiterEvents = "SELECT eventinfo.EventName, eventinfo.EventDesc, eventinfo.CreatedEventDateTime, eventinfo.EventImage 
                             FROM eventinfo 
-                            LEFT JOIN usertoevent ON eventinfo.EventId=usertoevent.EventId 
+                            JOIN usertoevent ON eventinfo.EventId=usertoevent.EventId 
                             JOIN users ON users.UserId=usertoevent.UserId 
-                            WHERE users.UserType='recruiter' AND eventinfo.EventId NOT IN (SELECT usertoevent.EventId FROM usertoevent)";
+                            WHERE users.UserType='recruiter'
+                            AND NOT EXISTS (
+                                SELECT 1
+                                FROM usertoevent
+                                WHERE usertoevent.eventid = eventinfo.eventid
+                                AND usertoevent.userid = ?)";
         $recStmt = $conn->prepare($recruiterEvents);
-        $recStmt->execute();
+        $recStmt->execute([$userId]);
         $recEvents = $recStmt->fetchAll(PDO::FETCH_ASSOC);
         return array_merge($events, $recEvents);
     }
 
     function getRecruiterEvents($conn, $userId){
         $eventSql = "SELECT eventinfo.EventName, eventinfo.EventDesc, eventinfo.CreatedEventDateTime, eventinfo.EventImage
-        FROM eventinfo WHERE eventinfo.EventId NOT IN (SELECT usertoevent.EventId FROM usertoevent)";
+                    FROM eventinfo
+                    WHERE NOT EXISTS (
+                    SELECT 1
+                    FROM usertoevent
+                    WHERE usertoevent.eventid = eventinfo.eventid
+                    AND usertoevent.userid = ?);";
 
         $eventStmt = $conn->prepare($eventSql);
-        $eventStmt->execute();
+        $eventStmt->execute([$userId]);
         return $eventStmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
