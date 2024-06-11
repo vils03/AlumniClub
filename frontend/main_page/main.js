@@ -23,7 +23,7 @@ window.onload = function() {
 const joinEvent = (event, id, div) => {
     
     const accept_btn = document.getElementById( id );
-        const accepted_msg=document.createElement('h5');
+    const accepted_msg=document.createElement('h5');
     
     fetch('../../backend/api/add_event_accepted.php', {
         method: 'POST',
@@ -145,15 +145,6 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 
 
-// const accept_event = document.getElementById('accept-btn');
-// accept_event.addEventListener('click', (event) => {
-//     event.preventDefault();
-//     accept_event.style.display = 'none';
-
-//     const accepted_msg=document.createElement('h5');
-//     accepted_msg.innerText = 'Йей, ще присъствам';
-//     accept_event.appendChild(accepted_msg);
-// });
 
 
 

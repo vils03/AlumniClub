@@ -49,12 +49,12 @@ const partRec = document.getElementById('additional-rec');
 
 function changeBtnVisibility (userType) {
     if ( userType === "recruiter") {
-        partRec.style.display = 'block';
+        partRec.style.display = 'flex';
         partGrad.style.display = 'none';
     }
     else {
         partRec.style.display = 'none';
-        partGrad.style.display = 'block';
+        partGrad.style.display = 'flex';
     }
 }
 function getUserType () {
@@ -77,6 +77,7 @@ function changePlaceholders () {
         if (!response.success) {
             throw new Error('Error get user type.');
         }
+        console.log(response.value);
         const userData = response.value;
 
         const name = document.getElementById('name');
@@ -88,6 +89,8 @@ function changePlaceholders () {
         phone.value = userData[0]['PhoneNumber'];
         const userType = userData[0]['UserType'];
 
+        console.log(userData);
+
         if(userType.localeCompare('recruiter') == 0){
             const company = document.getElementById('company');
             company.value = userData[0]['CompanyName'];
@@ -96,15 +99,103 @@ function changePlaceholders () {
             const fn = document.getElementById('fn');
             fn.value = userData[0]['FN'];
             const major = document.getElementById('major');
-            major.value = userData[0]['Major'];
+            major.value = userData[0]['MajorName'];
             const classuser = document.getElementById('class');
             classuser.value = userData[0]['Class'];
             const loc = document.getElementById('location');
             loc.value = userData[0]['Location'];
             const status = document.getElementById('status');
-            status.value = userData[0]['Status'];
+            const status_bit = userData[0]['Status'];
+            if(status_bit) {
+                status.value = 'employed';
+            }
+            else {
+                status.value = 'unemployed';
+            }
         }
     })
 }
 
 changePlaceholders();
+
+const getUser = () => {
+    fetch('../../backend/api/get_user_info.php')
+    .then(response => response.json())
+    .then(response => {
+        console.log(response.value);
+        return response.value;
+    })
+    .catch(error => {
+        console.error('Error fetching data:', error);
+    })
+}
+
+
+const passwordForm = document.getElementById('change-password');
+
+passwordForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const inputs = passwordForm.querySelectorAll('input');
+
+    const eventData = {};
+    inputs.forEach(input => {
+        eventData[input.id] = input.value;
+    })
+
+    fetch('../../backend/api/get_user_info.php')
+    .then(response => response.json())
+    .then(response => {
+        
+        const userData = response.value;
+        const combined = {
+            eventData: eventData,
+            userData: userData
+        };
+        fetch('../../backend/api/change_password.php', {
+            method: 'POST',
+            body: JSON.stringify(combined)
+        })
+        .then(response => response.json())
+        .then(response => {
+            if (response.success) {
+                var messageBox = document.getElementById("msg-box");
+                messageBox.style.display = 'block';
+                messageBox.innerText = 'Успешно променена парола';
+            } else {
+                var messageBox = document.getElementById("msg-box");
+                messageBox.style.display = 'block';
+                messageBox.innerText = 'Неуспешно променена парола';
+            }
+        })
+
+    })
+    .catch(error => {
+        console.error('Error fetching data:', error);
+    })
+
+
+
+
+
+    // const user = getUser();
+
+    // console.log(user);
+
+    // fetch('../../backend/api/change_password.php', {
+    //     method: 'POST',
+    //     body: JSON.stringify(eventData, getUser())
+    // })
+    // .then(response => response.json())
+    // .then(response => {
+    //     if (response.success) {
+    //         var messageBox = document.getElementById("msg-box");
+    //         messageBox.style.display = 'block';
+    //         messageBox.innerText = 'Успешно променена парола';
+    //     } else {
+    //         var messageBox = document.getElementById("msg-box");
+    //         messageBox.style.display = 'block';
+    //         messageBox.innerText = 'Неуспешно променена парола';
+    //     }
+    // })
+    
+});
