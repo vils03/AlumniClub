@@ -89,6 +89,46 @@ class User {
             throw new Exception("Невалиден тип потребител");
         }
     }
+    public function updatePass($newp, $oldp): void {
+        require_once "../db/DB.php";
+
+		try{
+			$db = new DB();
+			$conn = $db->getConnection();
+		}
+		catch (PDOException $e) {
+			echo json_encode([
+				'success' => false,
+				'message' => "Неуспешно свързване с базата данни",
+			]);
+			exit();
+		}
+
+        $selectStatement = $conn->prepare("SELECT * FROM `users` WHERE emailAddress = :emailAddress");
+        $result = $selectStatement->execute(['emailAddress' => $this->email]);
+        
+		$dbUser = $selectStatement->fetch();
+
+            // Check if the old password is correct
+            if (password_verify($oldp, $dbUser['UserPassword'])) {
+                // Hash the new password
+                $newPasswordHash = password_hash($newp, PASSWORD_BCRYPT);
+
+                // Update the password in the database
+                $updateStmt = $conn->prepare('UPDATE users SET UserPassword = :UserPassword WHERE emailAddress = :emailAddress');
+                $result = $updateStmt->execute(['UserPassword' => $newPasswordHash, 'emailAddress' => $this->email]);
+
+                if ($result) {
+                    echo json_encode(['success' => true]);
+                } else {
+                    echo json_encode(['success' => false, 'message' => 'Неуспешна смяна на паролата.']);
+                }
+            } else {
+                echo json_encode(['success' => false, 'message' => 'Неправилна стара парола']);
+            }
+
+
+    }
 }
 
 class Graduate extends User {

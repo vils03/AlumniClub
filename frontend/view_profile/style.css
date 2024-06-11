@@ -34,6 +34,9 @@
     background-color: #965bc0;
 }
 
+.msg-box {
+    display: none;
+}
 
 .container-right {
     background-color: white;
