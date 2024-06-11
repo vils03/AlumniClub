@@ -63,12 +63,9 @@ function getUserInfo($conn) {
     return $userObjects;
 }
 
-function exportUsersToCSV($conn, $filename) {
+function exportUsersToCSV($conn) {
     // Get user info
     $users = getUserInfo($conn);
-
-    // Open file for writing
-    $file = fopen($filename, 'w+');
 
     // Write user data
     foreach ($users as $user) {
@@ -78,29 +75,47 @@ function exportUsersToCSV($conn, $filename) {
             $user->lastname,
             $user->email,
             $user->phoneNumber,
-            $user instanceof Graduate ? $user->fn : '',
-            $user instanceof Graduate ? $user->major : '',
-            $user instanceof Graduate ? $user->class : '',
-            $user instanceof Graduate ? $user->status : '',
-            $user instanceof Graduate ? $user->location : '',
-            $user instanceof Recruiter ? $user->companyName : ''
         ];
-        $csvData[] = $row;
+        if($user instanceof Graduate){
+            $res =array_merge($row,  [
+                $user->fn,
+                $user->major,
+                $user->class,
+                $user->status,
+                $user->location,
+            ]);
+        }
+        else if($user instanceof Recruiter){
+            $res = array_merge($row, [
+                $user->companyName,
+            ]);
+        }
+        $csvData[] = $res;
     }
 
     // Convert CSV data to a string
     $csvString = '';
     foreach ($csvData as $row) {
-        $csvString .= implode(',', $row) . "\n";
+        $encodedRow = array_map(function($value) {
+            return mb_convert_encoding($value, 'UTF-8', 'auto');
+        }, $row);
+        $csvString .= implode(',', $encodedRow) . "\n";
     }
     return $csvString;
 }
-try{
+try {
     $db = new DB();
-    $conn=$db->getConnection();
-    $csvData = exportUsersToCSV($conn, '../files/csv/exported_users.csv');
-    header('Content-Type: text/csv');
+    $conn = $db->getConnection();
+    
+    $conn->exec("SET NAMES 'utf8'");
+    
+    $csvData = exportUsersToCSV($conn);
+    
+    header('Content-Type: text/csv; charset=UTF-8');
     header('Content-Disposition: attachment; filename="exported_users.csv"');
+    
+    echo "\xEF\xBB\xBF";
+    
     echo $csvData;
 } catch(PDOException $e) {
     echo json_encode([
