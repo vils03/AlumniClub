@@ -24,10 +24,10 @@ require_once('../db/db.php');
 
         $eventSql = "SELECT eventinfo.EventName, eventinfo.EventDesc, eventinfo.CreatedEventDateTime, eventinfo.EventImage
         FROM eventinfo 
-        JOIN usertoevent ON eventinfo.EventId=usertoevent.EventId
+        LEFT JOIN usertoevent ON eventinfo.EventId=usertoevent.EventId
         JOIN graduate ON graduate.GraduateId=usertoevent.UserId 
         JOIN major ON Major.MajorId=graduate.MajorId 
-        WHERE major.MajorName=:major OR graduate.Class=:class";
+        WHERE (major.MajorName=:major OR graduate.Class=:class) AND eventinfo.EventId NOT IN (SELECT usertoevent.EventId FROM usertoevent)";
 
         $eventStmt = $conn->prepare($eventSql);
         $eventStmt->execute([
@@ -37,9 +37,9 @@ require_once('../db/db.php');
         $events = $eventStmt->fetchAll(PDO::FETCH_ASSOC);
         $recruiterEvents = "SELECT eventinfo.EventName, eventinfo.EventDesc, eventinfo.CreatedEventDateTime, eventinfo.EventImage 
                             FROM eventinfo 
-                            JOIN usertoevent ON eventinfo.EventId=usertoevent.EventId 
+                            LEFT JOIN usertoevent ON eventinfo.EventId=usertoevent.EventId 
                             JOIN users ON users.UserId=usertoevent.UserId 
-                            WHERE users.UserType='recruiter'";
+                            WHERE users.UserType='recruiter' AND eventinfo.EventId NOT IN (SELECT usertoevent.EventId FROM usertoevent)";
         $recStmt = $conn->prepare($recruiterEvents);
         $recStmt->execute();
         $recEvents = $recStmt->fetchAll(PDO::FETCH_ASSOC);
@@ -48,7 +48,7 @@ require_once('../db/db.php');
 
     function getRecruiterEvents($conn, $userId){
         $eventSql = "SELECT eventinfo.EventName, eventinfo.EventDesc, eventinfo.CreatedEventDateTime, eventinfo.EventImage
-        FROM eventinfo";
+        FROM eventinfo WHERE eventinfo.EventId NOT IN (SELECT usertoevent.EventId FROM usertoevent)";
 
         $eventStmt = $conn->prepare($eventSql);
         $eventStmt->execute();

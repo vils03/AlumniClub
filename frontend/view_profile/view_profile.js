@@ -74,14 +74,36 @@ function changePlaceholders () {
     fetch("../../backend/api/get_user_info.php")
     .then(response => response.json())
     .then(response => {
-      if (!response.success) {
-        throw new Error('Error get user type.');
-      }
-      const userData = response.value;
-      console.log(userData.FirstName);
-      const name = document.getElementById('name');
-      name.value = userData[0]['FirstName'];
+        if (!response.success) {
+            throw new Error('Error get user type.');
+        }
+        const userData = response.value;
 
+        const name = document.getElementById('name');
+        name.value = userData[0]['FirstName'];
+        const lastname = document.getElementById('last-name');
+        lastname.value = userData[0]['LastName'];
+
+        const phone = document.getElementById('phone-number');
+        phone.value = userData[0]['PhoneNumber'];
+        const userType = userData[0]['UserType'];
+
+        if(userType.localeCompare('recruiter') == 0){
+            const company = document.getElementById('company');
+            company.value = userData[0]['CompanyName'];
+        }
+        else if(userType.localeCompare('graduate') == 0){
+            const fn = document.getElementById('fn');
+            fn.value = userData[0]['FN'];
+            const major = document.getElementById('major');
+            major.value = userData[0]['Major'];
+            const classuser = document.getElementById('class');
+            classuser.value = userData[0]['Class'];
+            const loc = document.getElementById('location');
+            loc.value = userData[0]['Location'];
+            const status = document.getElementById('status');
+            status.value = userData[0]['Status'];
+        }
     })
 }
 

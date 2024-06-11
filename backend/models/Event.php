@@ -142,7 +142,7 @@ class Event{
                 'userid' => $userId,
                 'eventid' => $eventId,
                 'accepted' => 1,
-                'created' => 0
+                'created' => false
             ]);
             if ($resultCross) {
                 $conn->commit();

@@ -18,6 +18,7 @@ require_once "../models/Event.php";
             echo json_encode([
                 'success' => true,
                 'email' => $_SESSION['email'],
+                'event' => $phpInput['EventName']
             ]);
             
         } catch (Exception $e) {

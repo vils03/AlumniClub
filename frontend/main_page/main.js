@@ -20,6 +20,25 @@ window.onload = function() {
         });
 };
 
+const joinEvent = (event, id, div) => {
+    
+    const accept_btn = document.getElementById( id );
+        const accepted_msg=document.createElement('h5');
+    
+    fetch('../../backend/api/add_event_accepted.php', {
+        method: 'POST',
+        body: JSON.stringify(event),
+    })
+    .then(response=>response.json())
+    .then(response=>{
+        if(response.success){
+            accept_btn.style.display = 'none';
+            accepted_msg.innerText = 'Йей, ще присъствам!';
+            div.appendChild(accepted_msg);
+        }
+    })
+}
+
 document.addEventListener('DOMContentLoaded', function(){
     const feedContainer = document.getElementById('accepted-events');
     const eventsContainer = document.getElementById('events-feed');
@@ -75,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
         const eventData = await fetchEventsData();
         let k = 0;
-        for(var event of eventData.value){
+        eventData.value.forEach(ev => {
             const section = document.createElement('section');
             section.classList.add('event-card');
             /* title, date and description and button -> left side */
@@ -84,62 +103,39 @@ document.addEventListener('DOMContentLoaded', function(){
             section.appendChild(divInfo);
 
             const title = document.createElement('h2');
-            title.innerText = event['EventName'];
+            title.innerText = ev['EventName'];
             divInfo.appendChild(title);
 
             const date=document.createElement('h5');
-            date.innerText = event['CreatedEventDateTime'];
+            date.innerText = ev['CreatedEventDateTime'];
             divInfo.appendChild(date);
 
             const desc=document.createElement('p');
-            desc.innerText = event['EventDesc'];
+            desc.innerText = ev['EventDesc'];
             divInfo.appendChild(desc);
 
             const accept_btn=document.createElement('button');
             accept_btn.innerText = "Ще отида";
             accept_btn.id = 'accept-btn'+(k+1);
+            accept_btn.onclick = function() {
+                joinEvent(ev, accept_btn.id, divInfo);
+            }
             accept_btn.classList.add('accept-event-button');
             divInfo.appendChild(accept_btn); 
-            //event listner for accepting event: 
-
-            console.log(event);
-
-            accept_btn.addEventListener('click', function() {
-                accept_btn.style.display = 'none';
-
-                const accepted_msg=document.createElement('h5');
-                //accepted_msg.innerText = 'Йей, ще присъствам!';
-                divInfo.appendChild(accepted_msg);
-
-                const addEventToUser = async() => {
-                    fetch('../../backend/api/add_event_accepted.php', {
-                        method: 'POST',
-                        body: JSON.stringify(event),
-                    })
-                    .then(response=>response.json())
-                    .then(response=>{
-                        if(response.success){
-                            accepted_msg.innerText = 'Йей, ще присъствам!';
-                        }
-                    })
-                };
-
-                addEventToUser();
-            });
-
+            
             /* image -> right side */
             const divImg = document.createElement('div');
             divImg.classList.add('event-img');
             section.appendChild(divImg);
 
             const image = document.createElement('img');
-            console.log(event['EventImage']);
-            image.setAttribute('src', `../../files/uploaded/${event['EventImage']}`);
+            console.log(ev['EventImage']);
+            image.setAttribute('src', `../../files/uploaded/${ev['EventImage']}`);
             image.setAttribute('alt', 'Event Default');
             divImg.appendChild(image);
 
             eventsContainer.appendChild(section);
-        }
+        })
     };
 
     displayFeed();
