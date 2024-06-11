@@ -108,11 +108,14 @@ class User {
         $result = $selectStatement->execute(['emailAddress' => $this->email]);
         
 		$dbUser = $selectStatement->fetch();
+        echo $dbUser['UserPassword'];
+        echo 'end';
+        echo password_hash($oldp, PASSWORD_DEFAULT);
 
             // Check if the old password is correct
             if (password_verify($oldp, $dbUser['UserPassword'])) {
                 // Hash the new password
-                $newPasswordHash = password_hash($newp, PASSWORD_BCRYPT);
+                $newPasswordHash = password_hash($newp,  PASSWORD_BCRYPT);
 
                 // Update the password in the database
                 $updateStmt = $conn->prepare('UPDATE users SET UserPassword = :UserPassword WHERE emailAddress = :emailAddress');
@@ -124,7 +127,7 @@ class User {
                     echo json_encode(['success' => false, 'message' => 'Неуспешна смяна на паролата.']);
                 }
             } else {
-                echo json_encode(['success' => false, 'message' => 'Неправилна стара парола']);
+                echo json_encode(['success' => false, 'message' => 'Неправилна стара парола', 'value'=> $dbUser]);
             }
 
 
@@ -245,6 +248,73 @@ class Graduate extends User {
         
     }
 
+    public function fetchUserIdByEmail (PDO $conn, $email) {
+        $sql = "SELECT UserId FROM Users WHERE emailaddress = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([$email]);
+    
+        return $stmt->fetch(PDO::FETCH_ASSOC)["UserId"];
+    }
+    public function updateInDB($email): void {
+        require_once "../db/DB.php";
+
+        try{
+            $db = new DB();
+            $conn = $db->getConnection();
+			$conn->beginTransaction();
+		}
+		catch (PDOException $e) {
+			echo json_encode([
+				'success' => false,
+				'message' => "Неуспешно свързване с базата данни",
+			]);
+		}
+        try {
+                
+            $majorId = $this->fetchMajorId($conn);
+            $UserId = $this->fetchUserIdByEmail($conn, $email);
+
+            $updateMainUser = $conn->prepare(
+                "UPDATE `users` SET firstname = :name, lastname = :lastname, phoneNumber = :phoneNumber
+                     WHERE UserId = :id");
+                
+
+            $updateGraduate = $conn->prepare(
+                "UPDATE `Graduate` SET fn = :fn, major = :major, class = :class, status = :status, location = :location, majorId = :MajorId
+                WHERE GraduateId = :id");
+
+            $updateResultMain = $updateMainUser->execute([
+                'name' => $this->name,
+                'lastname' => $this->lastname,
+                'phoneNumber' => $this->phoneNumber,
+                'id' => $UserId
+            ]);
+
+            $updateResultGrad = $updateGraduate->execute([
+                'fn' => $this->fn,
+                'major' => $this->major,
+                'class' => $this->class,
+                'status' => $this->status,
+                'location' => $this->location,
+                'MajorId' => $majorId,
+                'id' => $UserId
+            ]);
+            if ($updateResultGrad) {
+                $conn->commit();
+            } else {
+                $conn->rollback();
+            }
+
+            
+        } catch (PDOException $e) {
+            echo json_encode([
+                'success' => false,
+                'message' => $e->getMessage()
+            ]);
+            exit();
+        }
+    }
+
     public function validate(): void {
         try {
             parent::validateUser();
@@ -303,6 +373,13 @@ class Recruiter extends User {
         $stmt = $conn->prepare($sql);
         $stmt->execute([$this->email]);
 
+        return $stmt->fetch(PDO::FETCH_ASSOC)["UserId"];
+    }
+    function fetchUserIdByEmail (PDO $conn, $email) {
+        $sql = "SELECT UserId FROM Users WHERE emailaddress = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([$email]);
+    
         return $stmt->fetch(PDO::FETCH_ASSOC)["UserId"];
     }
 
@@ -372,6 +449,58 @@ class Recruiter extends User {
             exit();
         }
         
+    }
+
+    public function updateInDB($email): void {
+        require_once "../db/DB.php";
+
+        try{
+            $db = new DB();
+            $conn = $db->getConnection();
+			$conn->beginTransaction();
+		}
+		catch (PDOException $e) {
+			echo json_encode([
+				'success' => false,
+				'message' => "Неуспешно свързване с базата данни",
+			]);
+		}
+        try {
+                
+            $UserId = $this->fetchUserIdByEmail($conn, $email);
+
+            $updateMainUser = $conn->prepare(
+                "UPDATE `users` SET firstname = :name, lastname = :lastname, phoneNumber = :phoneNumber
+                     WHERE UserId = :id");
+
+            $updateResultMain = $updateMainUser->execute([
+                'name' => $this->name,
+                'lastname' => $this->lastname,
+                'phoneNumber' => $this->phoneNumber,
+                'id' => $UserId
+            ]);
+
+            $updateRecruiter = $conn->prepare(
+                "UPDATE `Recruiter` SET companyName = :companyName WHERE RecruiterId = :id");
+        
+            $updateResult = $updateRecruiter->execute([
+                'id' => $userId,
+                'companyName'=> $this->companyName,
+            ]);
+
+            if ($updateResultGrad) {
+                $conn->commit();
+                
+            } else {
+                $conn->rollback();
+            }
+        } catch (PDOException $e) {
+            echo json_encode([
+                'success' => false,
+                'message' => $e->getMessage()
+            ]);
+            exit();
+        }
     }
 
     public function validate(): void {

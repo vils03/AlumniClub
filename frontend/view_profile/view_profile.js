@@ -171,31 +171,50 @@ passwordForm.addEventListener('submit', (event) => {
     })
     .catch(error => {
         console.error('Error fetching data:', error);
-    })
-
-
-
-
-
-    // const user = getUser();
-
-    // console.log(user);
-
-    // fetch('../../backend/api/change_password.php', {
-    //     method: 'POST',
-    //     body: JSON.stringify(eventData, getUser())
-    // })
-    // .then(response => response.json())
-    // .then(response => {
-    //     if (response.success) {
-    //         var messageBox = document.getElementById("msg-box");
-    //         messageBox.style.display = 'block';
-    //         messageBox.innerText = 'Успешно променена парола';
-    //     } else {
-    //         var messageBox = document.getElementById("msg-box");
-    //         messageBox.style.display = 'block';
-    //         messageBox.innerText = 'Неуспешно променена парола';
-    //     }
-    // })
-    
+    })    
 });
+
+const UpdateForm = document.getElementById('change-info-form');
+
+UpdateForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const inputs = UpdateForm.querySelectorAll('input, select');
+
+    let userData = {};
+    inputs.forEach(input => {
+        userData[input.id] = input.value;
+    });
+
+    fetch('../../backend/api/get_user_type.php', {
+    })
+    .then(response=>response.json())
+    .then(response=>{
+        if (!response.success) {
+            throw new Error('Error get user type.');
+        }
+        else {
+            console.log(response.value);
+            userData['type'] = response.value;
+            fetch('../../backend/api/update_profile.php', {
+                method: 'POST',
+                body: JSON.stringify(userData),
+            })
+            .then(response=>response.json())
+            .then(response=>{
+                let messageBox = document.getElementById("msg");
+                if(response.success){
+                    messageBox.style.display = 'block';
+                    messageBox.innerText = response.message;
+                }
+                else{
+                    messageBox.style.display = 'none';
+                }
+            })
+        }
+    })
+    console.log(userData);
+
+    
+
+});
+

@@ -107,6 +107,10 @@
     background-color: #965bc0;
 }
 
+.msg {
+    display: 'none';
+}
+
 /* popup styling */
 .popup-container {
     display: none;
