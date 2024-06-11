@@ -38,6 +38,8 @@ function uploadImage(){
 
 const eventForm = document.getElementById('add-event-form');
 eventForm.addEventListener('submit', (event) => {
+    let messageBox = document.getElementById("reg-not-success");
+    messageBox.innerText = "";
     event.preventDefault();
     const inputs = eventForm.querySelectorAll('input, textarea');
 
@@ -67,7 +69,7 @@ eventForm.addEventListener('submit', (event) => {
             eventForm.reset();
         }
         else{
-            var messageBox = document.getElementById("reg-not-success");
+            let messageBox = document.getElementById("reg-not-success");
             messageBox.style.display = 'block';
             messageBox.innerText = response.message;
         }

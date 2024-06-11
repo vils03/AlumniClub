@@ -72,19 +72,6 @@ CREATE TABLE UserToEvent (
         REFERENCES EventInfo (EventId)
 );
 
-CREATE TABLE MessagesInfo (
-	MessagesInfoId INT NOT NULL AUTO_INCREMENT,
-	SenderId       INT NOT NULL,
-	RecipientId    INT NOT NULL,
-	MessageText    VARCHAR(100) NOT NULL,
-	
-	CONSTRAINT MessagesInfo_PK        PRIMARY KEY (MessagesInfoId),
-    CONSTRAINT MessagesInfoToSender_FK  FOREIGN KEY (SenderId)
-        REFERENCES Users (UserId),
-	CONSTRAINT MessagesInfoToRecipient_FK  FOREIGN KEY (RecipientId)
-        REFERENCES Users (UserId)
-);
-
 CREATE TABLE AdInfo (
 	AdId              INT NOT NULL AUTO_INCREMENT,
 	RecruiterId       INT NOT NULL,
@@ -99,4 +86,5 @@ CREATE TABLE AdInfo (
 
 
 INSERT INTO major(MajorName) 
-VALUES ("SI"), ("I"), ("IS"), ("KN"), ("M"), ("PM"), ("AD"), ("MI");
+VALUES ("Софтуерно инженерство"), ("Информатика"), ("Информационни системи"), ("Компютърни науки"), 
+("Математика"), ("Приложна математика"), ("Анализ на данни"), ("Математика и информатика");
