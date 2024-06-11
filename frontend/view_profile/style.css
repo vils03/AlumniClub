@@ -9,6 +9,31 @@
     gap: 10px;
 }
 
+.change-password {
+    background-color: white;
+    padding: 20px;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 10px;
+}
+
+.change-pass-btn button{
+    background-color:#4b0082;
+    color: white;
+    font-size: 15px;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    align-self: center;
+    padding: 10px;
+}
+
+.change-pass-btn button:hover {
+    background-color: #965bc0;
+}
+
 
 .container-right {
     background-color: white;
@@ -17,6 +42,7 @@
     flex-flow: column wrap;
     align-items: center;
 }
+
 
 
 
@@ -30,7 +56,7 @@
     flex-flow: column wrap;
     justify-content: space-evenly;
     align-items: center;
-    gap: 10px;
+    gap: 30px;
 }
 
 .without-btn {
@@ -41,12 +67,25 @@
     gap: 10px;
 }
 
+.main-info {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-evenly;
+    gap: 30px;
+}
+
 .additional-grad {
     display: none;
+    flex-flow: column wrap;
+    justify-content: space-evenly;
+    gap: 30px;
 }
 
 .additional-rec {
     display: none;
+    flex-flow: column wrap;
+    justify-content: space-evenly;
+    gap: 30px;
 }
 
 .form-item-button button{
