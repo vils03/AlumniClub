@@ -10,10 +10,8 @@ require_once('../db/db.php');
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     function getGraduateEvents($conn, $userId){
-        $sql = "SELECT graduate.Class, major.MajorName 
-        FROM `eventinfo` 
-        JOIN `usertoevent` ON eventinfo.EventId=usertoevent.EventId 
-        JOIN `users` ON usertoevent.UserId=users.UserId 
+        $sql = "SELECT graduate.Class, major.MajorName
+        FROM `users`
         JOIN `graduate` ON users.UserId=graduate.GraduateId 
         JOIN `major` ON graduate.MajorId=major.MajorId 
         WHERE users.UserId=graduate.GraduateId AND users.userId=?";
@@ -41,7 +39,7 @@ require_once('../db/db.php');
             "userid" => $userId,
         ]);
         $events = $eventStmt->fetchAll(PDO::FETCH_ASSOC);
-        $recruiterEvents = "SELECT eventinfo.EventName, eventinfo.EventDesc, eventinfo.CreatedEventDateTime, eventinfo.EventImage 
+        $recruiterEvents = "SELECT eventinfo.EventName, eventinfo.EventDesc, eventinfo.CreatedEventDateTime, eventinfo.EventImage
                             FROM eventinfo 
                             JOIN usertoevent ON eventinfo.EventId=usertoevent.EventId 
                             JOIN users ON users.UserId=usertoevent.UserId 

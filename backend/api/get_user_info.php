@@ -22,7 +22,7 @@ function getUserInfo($conn, $userId){
 
     if(strcmp($userType, 'graduate') == 0){
         $graduateSql = "SELECT graduate.Class, major.MajorName, graduate.Location, graduate.FN, graduate.Status
-        FROM `graduate` JOIN `major` ON graduate.MajorId=major.MajorId
+        FROM `graduate` JOIN `major` ON graduate.majorId=major.majorId
         WHERE graduate.graduateId=?";
         $stmt = $conn->prepare($graduateSql);
         $stmt->execute([$userId]);

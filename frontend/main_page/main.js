@@ -5,12 +5,7 @@ window.onload = function() {
             const nameElement = document.getElementById('name');
             nameElement.innerText = data.value[0]['FirstName'];
             const imgElem = document.getElementById('profile-pic');
-            if(data.value[0]['UserImage'] === ""){
-                imgElem.setAttribute('src', '../../files/images/default_pic.jpg');
-            }
-            else{
-                imgElem.setAttribute('src', `../../files/uploaded/${data.value[0]['UserImage']}`);
-            }
+            imgElem.setAttribute('src', `../../files/uploaded/${data.value[0]['UserImage']}`);
             
             const userInfoElement = document.getElementById('user-info');
             const userType = data.value[0]['UserType'];
@@ -86,9 +81,7 @@ document.addEventListener('DOMContentLoaded', function(){
         for(var item of data.value){
             const div = document.createElement('div');
             div.classList.add('accepted-event');
-
             const title = document.createElement('h3');
-            title.innerText = item['eventName'];
             div.appendChild(title);
 
             const date=document.createElement('p');
@@ -113,7 +106,8 @@ document.addEventListener('DOMContentLoaded', function(){
             divInfo.appendChild(title);
 
             const date=document.createElement('h5');
-            date.innerText = ev['CreatedEventDateTime'];
+            console.log(ev);
+            date.innerText = ev['EventName'];
             divInfo.appendChild(date);
 
             const desc=document.createElement('p');

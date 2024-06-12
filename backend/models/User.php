@@ -108,9 +108,6 @@ class User {
         $result = $selectStatement->execute(['emailAddress' => $this->email]);
         
 		$dbUser = $selectStatement->fetch();
-        echo $dbUser['UserPassword'];
-        echo 'end';
-        echo password_hash($oldp, PASSWORD_DEFAULT);
 
             // Check if the old password is correct
             if (password_verify($oldp, $dbUser['UserPassword'])) {
