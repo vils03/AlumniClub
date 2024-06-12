@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
             const date=document.createElement('h5');
             console.log(ev);
-            date.innerText = ev['EventName'];
+            date.innerText = ev['CreatedEventDateTime'];
             divInfo.appendChild(date);
 
             const desc=document.createElement('p');
