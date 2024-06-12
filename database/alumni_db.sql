@@ -1,4 +1,4 @@
-
+CREATE DATABASE alumniclub;
 
 CREATE TABLE Users (
     UserId          INT      NOT NULL AUTO_INCREMENT,
