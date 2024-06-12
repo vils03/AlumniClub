@@ -78,16 +78,6 @@ exportForm.addEventListener('submit', (event) => {
             document.body.appendChild(a);
             a.click();
             window.URL.revokeObjectURL(url);
-
-
-            const modal = document.getElementById('popup-container');
-            const closeBtn = document.getElementById('popup-close');
-
-            document.getElementById('popup-header').innerText = "Успешно експортнати потребители :)";
-            modal.style.display = 'flex';
-            
-            closeBtn.onclick = function() {
-                modal.style.display = 'none';
         })
         .catch(error => console.error('There was a problem with the fetch operation:', error));
 
