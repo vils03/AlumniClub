@@ -1,6 +1,7 @@
 const form = document.getElementById('import-form');
 
 form.addEventListener('submit', (event) => {
+    event.preventDefault();
     const file = document.getElementById('import').files[0];
 
     const formData = new FormData();
@@ -12,20 +13,50 @@ form.addEventListener('submit', (event) => {
     })
     .then(response=>response.json())
     .then(response=>{
+        const modal = document.getElementById('popup-container');
+        const closeBtn = document.getElementById('popup-close');
+        const backBtn = document.getElementById('popup-back');
         if(response.success){
-            const modal = document.getElementById('popup-container');
-            const closeBtn = document.getElementById('popup-close');
-
-            document.getElementById('popup-header').innerText = "Успешно добавени потребители :)";
+            
+            document.getElementById('popup-header').innerText = "Успешно добавено събитие :)";
             modal.style.display = 'flex';
             
             closeBtn.onclick = function() {
                 modal.style.display = 'none';
             }
+            backBtn.onclick = function() {
+                location.href = "../welcome_page/welcome.html";
+            }
+
         }
+        else{
+
+            document.getElementById('popup-header').innerText = "Грешка при импорт :)";
+            modal.style.display = 'flex';
+            
+            closeBtn.onclick = function() {
+                modal.style.display = 'none';
+            }
+            backBtn.onclick = function() {
+                location.href = "../welcome_page/welcome.html";
+            }
+        }
+    })
+    .catch(error => {
+        console.error('Грешка при импорт', error);
+
+            let modal = document.getElementById('popup-container');
+            let closeBtn = document.getElementById('popup-close');
+
+            document.getElementById('popup-header').innerText = "Грешка при импорт :)";
+            modal.style.display = 'block';
+            
+            closeBtn.onclick = function() {
+                modal.style.display = 'none';
+            }
     });
 
-    event.preventDefault();
+    
 });
 
 

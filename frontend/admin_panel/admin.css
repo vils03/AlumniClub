@@ -156,6 +156,17 @@ button:hover {
     border-radius: 20%;
 }
 
+#popup-back {
+    background-color: #4b0082;
+    color: white;
+    padding: 10px 20px;
+    margin-top: 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 20%;
+}
+
 #popup-close:hover {
     background-color: #db87f7;
 }

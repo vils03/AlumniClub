@@ -28,6 +28,7 @@ if (isset($_FILES['csv']['name'])) {
             echo json_encode([
                 'success' => false,
                 'message' => "Нeвалиден тип потребител!",
+                'value' => $row[0]
             ]);
             exit();
         }

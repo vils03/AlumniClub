@@ -276,7 +276,7 @@ class Graduate extends User {
                 
 
             $updateGraduate = $conn->prepare(
-                "UPDATE `Graduate` SET fn = :fn, major = :major, class = :class, status = :status, location = :location, majorId = :MajorId
+                "UPDATE `Graduate` SET fn = :fn, major = :major, class = :class, status = :status, location = :location, MajorId = :MajorId
                 WHERE GraduateId = :id");
 
             $updateResultMain = $updateMainUser->execute([

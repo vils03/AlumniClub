@@ -1,6 +1,6 @@
 CREATE DATABASE alumniclub;
 
-CREATE TABLE Users (
+CREATE TABLE alumniclub.Users (
     UserId          INT      NOT NULL AUTO_INCREMENT,
     FirstName       VARCHAR(30) NOT NULL,
     LastName        VARCHAR(30) NOT NULL,
@@ -14,7 +14,7 @@ CREATE TABLE Users (
     CONSTRAINT User_AK3 UNIQUE (EmailAddress)
 );
 
-CREATE TABLE Major (
+CREATE TABLE alumniclub.Major (
     MajorId         INT      NOT NULL AUTO_INCREMENT,
     MajorName            CHAR(30) NOT NULL,  
      
@@ -22,7 +22,7 @@ CREATE TABLE Major (
     CONSTRAINT Major_AK UNIQUE      (MajorName)   
 );
 
-CREATE TABLE Graduate (
+CREATE TABLE alumniclub.Graduate (
     GraduateId         INT      NOT NULL,
     FN                 VARCHAR(30) NOT NULL,
 	Major              VARCHAR(30) NOT NULL,
@@ -38,7 +38,7 @@ CREATE TABLE Graduate (
         REFERENCES Major (MajorId)   
 );
 
-CREATE TABLE Recruiter (
+CREATE TABLE alumniclub.Recruiter (
     RecruiterId      INT         NOT NULL,
     CompanyName      VARCHAR(50) NOT NULL,  
 
@@ -47,7 +47,7 @@ CREATE TABLE Recruiter (
         REFERENCES Users (UserId)   
 );
 
-CREATE TABLE EventInfo  (
+CREATE TABLE alumniclub.EventInfo  (
 	EventId         INT NOT NULL AUTO_INCREMENT,
     EventName       VARCHAR(30)  NOT NULL,
     EventDesc       VARCHAR(200) NOT NULL,  
@@ -58,7 +58,7 @@ CREATE TABLE EventInfo  (
 	   
 );
 
-CREATE TABLE UserToEvent (
+CREATE TABLE alumniclub.UserToEvent (
 	UserToEventId INT NOT NULL AUTO_INCREMENT,
 	UserId INT NOT NULL,
 	EventId INT NOT NULL,
@@ -72,7 +72,7 @@ CREATE TABLE UserToEvent (
         REFERENCES EventInfo (EventId)
 );
 
-CREATE TABLE AdInfo (
+CREATE TABLE alumniclub.AdInfo (
 	AdId              INT NOT NULL AUTO_INCREMENT,
 	RecruiterId       INT NOT NULL,
 	AdName            VARCHAR(50) NOT NULL,
@@ -85,6 +85,6 @@ CREATE TABLE AdInfo (
 );
 
 
-INSERT INTO major(MajorName) 
+INSERT INTO alumniclub.major(MajorName) 
 VALUES ("Софтуерно инженерство"), ("Информатика"), ("Информационни системи"), ("Компютърни науки"), 
 ("Математика"), ("Приложна математика"), ("Анализ на данни"), ("Математика и информатика");
