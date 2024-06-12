@@ -82,6 +82,7 @@ document.addEventListener('DOMContentLoaded', function(){
             const div = document.createElement('div');
             div.classList.add('accepted-event');
             const title = document.createElement('h3');
+            title.innerText = item['eventName'];
             div.appendChild(title);
 
             const date=document.createElement('p');
