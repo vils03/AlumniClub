@@ -112,7 +112,7 @@ class User {
             // Check if the old password is correct
             if (password_verify($oldp, $dbUser['UserPassword'])) {
                 // Hash the new password
-                $newPasswordHash = password_hash($newp,  PASSWORD_BCRYPT);
+                $newPasswordHash = password_hash($newp, PASSWORD_DEFAULT);
 
                 // Update the password in the database
                 $updateStmt = $conn->prepare('UPDATE users SET UserPassword = :UserPassword WHERE emailAddress = :emailAddress');

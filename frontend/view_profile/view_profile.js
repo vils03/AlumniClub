@@ -137,41 +137,27 @@ passwordForm.addEventListener('submit', (event) => {
     event.preventDefault();
     const inputs = passwordForm.querySelectorAll('input');
 
-    const eventData = {};
+    const passwordData = {};
     inputs.forEach(input => {
-        eventData[input.id] = input.value;
+        passwordData[input.id] = input.value;
     })
 
-    fetch('../../backend/api/get_user_info.php')
+    fetch('../../backend/api/change_password.php', {
+        method: 'POST',
+        body: JSON.stringify(passwordData)
+    })
     .then(response => response.json())
     .then(response => {
-        
-        const userData = response.value;
-        const combined = {
-            eventData: eventData,
-            userData: userData
-        };
-        fetch('../../backend/api/change_password.php', {
-            method: 'POST',
-            body: JSON.stringify(combined)
-        })
-        .then(response => response.json())
-        .then(response => {
-            if (response.success) {
-                var messageBox = document.getElementById("msg-box");
-                messageBox.style.display = 'block';
-                messageBox.innerText = 'Успешно променена парола';
-            } else {
-                var messageBox = document.getElementById("msg-box");
-                messageBox.style.display = 'block';
-                messageBox.innerText = 'Неуспешно променена парола';
-            }
-        })
-
-    })
-    .catch(error => {
-        console.error('Error fetching data:', error);
-    })    
+        if (response.success) {
+            var messageBox = document.getElementById("msg-box");
+            messageBox.style.display = 'block';
+            messageBox.innerText = 'Успешно променена парола';
+        } else {
+            var messageBox = document.getElementById("msg-box");
+            messageBox.style.display = 'block';
+            messageBox.innerText = 'Неуспешно променена парола';
+        }
+    })  
 });
 
 const UpdateForm = document.getElementById('change-info-form');
