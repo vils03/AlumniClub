@@ -1,4 +1,5 @@
 <?php 
+mb_internal_encoding("UTF-8");
 
 class User {
     public $id;
@@ -116,15 +117,13 @@ class User {
 
                 // Update the password in the database
                 $updateStmt = $conn->prepare('UPDATE users SET UserPassword = :UserPassword WHERE emailAddress = :emailAddress');
-                $result = $updateStmt->execute(['UserPassword' => $newPasswordHash, 'emailAddress' => $this->email]);
+                $resultUpdate = $updateStmt->execute(['UserPassword' => $newPasswordHash, 'emailAddress' => $this->email]);
 
-                if ($result) {
-                    echo json_encode(['success' => true]);
-                } else {
-                    echo json_encode(['success' => false, 'message' => 'Неуспешна смяна на паролата.']);
+                if (!$resultUpdate) {
+                    throw new Exception("Неуспешна смяна на паролата.");
                 }
             } else {
-                echo json_encode(['success' => false, 'message' => 'Неправилна стара парола', 'value'=> $dbUser]);
+                throw new Exception("Неправилна стара парола.");
             }
 
 
@@ -480,12 +479,12 @@ class Recruiter extends User {
             $updateRecruiter = $conn->prepare(
                 "UPDATE `Recruiter` SET companyName = :companyName WHERE RecruiterId = :id");
         
-            $updateResult = $updateRecruiter->execute([
-                'id' => $userId,
+            $updateResultRec = $updateRecruiter->execute([
+                'id' => $UserId,
                 'companyName'=> $this->companyName,
             ]);
 
-            if ($updateResultGrad) {
+            if ($updateResultRec) {
                 $conn->commit();
                 
             } else {

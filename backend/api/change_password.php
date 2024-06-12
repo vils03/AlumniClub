@@ -26,7 +26,7 @@
             $user->updatePass($phpInput['password-new'], $phpInput['password-old']);
             echo json_encode([
                 'success' => true,
-                'message' => 'Успешна промяна!'
+                'message' => 'Успешна промяна!',
             ]);
         } catch (Exception $e) {
             echo json_encode([

@@ -157,7 +157,13 @@ passwordForm.addEventListener('submit', (event) => {
             messageBox.style.display = 'block';
             messageBox.innerText = 'Неуспешно променена парола';
         }
-    })  
+    })
+    .catch(error => {
+        console.error('Грешка при смяна на парола', error);
+        let messageBox = document.getElementById("msg-box");
+        messageBox.style.display = 'block';
+        messageBox.innerText = 'Грешка при смяна на парола';
+    });
 });
 
 const UpdateForm = document.getElementById('change-info-form');
@@ -196,11 +202,21 @@ UpdateForm.addEventListener('submit', (event) => {
                     messageBox.style.display = 'none';
                 }
             })
+            .catch(error => {
+                console.error('Грешка при промяна да данните');
+                let messageBox = document.getElementById("msg");
+                messageBox.style.display = 'block';
+                messageBox.innerText = 'Грешка при промяна да данните';
+            });
         }
     })
+    .catch(error => {
+        console.error('Грешка при извличане тип на потребител');
+        let messageBox = document.getElementById("msg");
+        messageBox.style.display = 'block';
+        messageBox.innerText = 'Грешка при извличане тип на потребител';
+    });
     console.log(userData);
-
-    
 
 });
 
