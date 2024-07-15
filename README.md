@@ -48,7 +48,8 @@ Export information about registered users to a CSV file
 - The system should allow the page to load in no more than 2 seconds under standard network traffic conditions.
 - The system must have an uptime of at least 99.9%
 
-## 2.4. Benefits of project implementation - from the point of view of users who are graduate students, the biggest benefit is that the existence of the system keeps them connected with colleagues after graduation. By adding and attending different events, they can continue to exchange experiences and ideas. On the other hand, through the ads added by recruiters, they can find out what the demand is in the market or find a job if they don't already have one.
+## 2.4. Benefits of project implementation
+From the point of view of users who are graduate students, the biggest benefit is that the existence of the system keeps them connected with colleagues after graduation. By adding and attending different events, they can continue to exchange experiences and ideas. On the other hand, through the ads added by recruiters, they can find out what the demand is in the market or find a job if they don't already have one.
 For recruiters, the benefits are that they have the opportunity to present the companies they work for and the available positions in them to a group of people who have interests in the specific field. Thus, the search for quality personnel becomes more efficient.
 
 # 3. Theory – analysis and design of the solution 
@@ -85,7 +86,8 @@ through a browser we access localhost and navigate to the directory with the pro
 - Now that we've created the database and added the users to it, we go back to phpmyadmin and run the 'add_info.sql' script which brings in information about the events and announcements created.
 - The purpose of this multi-step data preparation is to import users through the developed APIs so that their password can be hashed. Every user that is imported from a csv file is assigned a default password (12345678), which can be changed later.
 
-## 5.3. SQL_SERVER - “localhost”
+## 5.3. 
+SQL_SERVER - “localhost”
 SQL_PORT - “3306”
 SQL_USERNAME - “root”
 SQL_PASSWORD - “”
